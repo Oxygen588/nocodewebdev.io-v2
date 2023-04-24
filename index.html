@@ -1,6 +1,27 @@
 
 <style>
+@font-face {
+    font-family: 'Oracle Sans Condensed';
+    src: local('./fonts/Oracle Sans Condensed Bold'), local('./fonts/Oracle-Sans-Condensed-Bold'),
+        url('./fonts/OracleSansCondensed-Bold.woff2') format('woff2'),
+        url('./fonts/OracleSansCondensed-Bold.woff') format('woff'),
+        url('./fonts/OracleSansCondensed-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
 
+  @font-face {
+    font-family: 'RX100';
+    src: url('./fonts/RX100-Regular.eot');
+    src: local('./fonts/RX100'), local('RX100-Regular'),
+        url('./fonts/RX100-Regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/RX100-Regular.woff2') format('woff2'),
+        url('./fonts/RX100-Regular.woff') format('woff'),
+        url('./fonts/RX100-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 @media (min-width: 991.98px) {
   main {
     padding-left: 240px;
@@ -275,503 +296,592 @@ ul li {
 
 
 
+      <body>
 
 
-
-
+        <link rel="stylesheet" href="https://www.online-python.com/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="https://www.online-python.com/assets/dist/css/ide.css?v=a1">
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <!-- jQuery 3 -->
+        <!-- Bootstrap 3.3.7 -->
+        <script src="https://www.online-python.com/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="https://www.online-python.com/assets/dist/js/ide.js?v=a1"></script>
+        <!-- Ace Editor -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-language_tools.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-settings_menu.min.js" type="text/javascript" charset="utf-8"></script>
+        <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-keybinding_menu.min.js" type="text/javascript" charset="utf-8"></script>
+        <!-- Split JS -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.2/split.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+        <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    
+        <style>
+    .container {
+      transform: translate3d(100%, 0, 0);
+      transition: 0.5s;
+    }
+    .container.slide-in {
+      transform: translate3d(0, 0, 0);
+    }
+          </style>
+    
+        <div>
+          <script>
+            trueorfalse = false
+            function slidein(){
+              trueorfalse = !trueorfalse
+              if (trueorfalse){
+              $('.container').addClass('slide-in');
+              }else{
+                $('.container').removeClass('slide-in');
+              }
+            }
+            </script>
+            <div class="container" id="container" style="position:absolute;width: 35vw;left: 65vw;">
+                <Button onclick="slidein()" style="position:relative;top:5vw;left:-4.3vw;">see code</Button>
+                <div id="header-control"><br>
+                </div>
+                <div id="mi" class="split">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active" id="editor-1"><a data-toggle="tab">main.py</a></li>
+                        <li id="new_file_btn"><button type="button" class="btn btn-default btn-sm add-editor" id="create_tab" data-title="New File"><i
+                      class="fas fa-plus"></i></button></li>
+                    </ul>
+                    <div id="editor"></div>
+                    <div class="boxed" id="editor_footer"></div>
+                    <div class="control-bar">
+                        <div id="control-btn"> <button type="button" class="btn btn-sm" id="run-btn" onclick="run_python()" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="F8"><i
+                      class="fa fa-play"></i> <strong>Run</strong></button>
+                        </div>
+    
+                        <input disabled style="width:20px;" id="input_arguments" placeholder="">
+                    </div>
+                </div>
+                <div id="d" class="split">
+                    <div class="boxed1" id="output_header">
+                        <div id="hint-section"></div>
+                        <div class="btn-group status" id="tool-btn">&nbsp; <button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Copy to Clipboard" class="btn btn-default btn-sm status" onclick="copy_output()"></button><button type="button" data-toggle="tooltip"
+                                data-container="body" data-placement="right" title="Download" class="btn btn-default btn-sm status" onclick="download_modal()"></button>
+                            <button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Clear" class="btn btn-default btn-sm status" onclick="clear_output()"></button>
+                        </div>
+                        &nbsp;<button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Start Terminal" class="btn btn-default btn-sm status" id="start-term" onclick="start_terminal()"></button><button type="button" data-toggle="tooltip"
+                            data-container="body" data-placement="right" title="Expand/Collapse" class="btn btn-default btn-sm status" id="term-expand" onclick="term_expand()"></button>
+                        <div id="output-status"></div>
+                    </div>
+                    <div id="terminal">
+                        <div id="progress-status"></div>
+                        <div class="boxed2" id="output">
+                            <div class="wrapper" id="wrap"></div>
+                            <form id="term-form"> <input id="term-input" autocomplete="off">
+                            </form>
+                        </div>
+                        <div id="terminal-ad"> </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Save Result modal -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="downloadResult">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h3 class="modal-title">Download Result</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"> <label for="name">File Name:</label> <input class="form-control" id="download_file_name" value="main_output.txt" type="text">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="download_output()" data-dismiss="modal">Download</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- Delete Editor Tab modal -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="closeEditorTab">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="close_file_title">Close File</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your changes will be lost. Are you sure you want to Close the file ?</p>
+                        </div>
+                        <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-sm" onclick="close_editor_tab()" data-dismiss="modal">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- Delete Editor Tab modal -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="saveEditorTab">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="save_file_title">Save</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you want to save the file ?</p>
+                            <form>
+                                <div class="form-group"> <label for="name">File Name:</label> <input class="form-control" id="code_file_name" value="main.py" type="text">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary" onclick="download_code()" data-dismiss="modal">Yes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- Share modal -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="shareModal">
+                <div class="modal-dialog" role="document" id="share-dialog">
+                    <div class="modal-content" id="share-content">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="share_code">Share the Code</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <p>Do you want to save the file ?</p> -->
+                            <form>
+                                <div class="form-group"> <label for="name">Expiry Period:</label>
+                                    <select class="form-control" id="expiry_select">
+                        <option value="1">24 hour</option>
+                        <option value="30">1 month</option>
+                        <option selected="selected" value="180">6 month</option>
+                        <option value="-1">Never</option>
+                      </select>
+                                </div>
+                            </form>
+                            <br>
+                            <button type="submit" class="btn btn-primary" onclick="share_code()" data-dismiss="modal" id="share-btn-modal">Share</button>
+                        </div>
+                        <!-- <div class="modal-footer">
+            </div> --></div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- Share modal After -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="shareModalAfter">
+                <div class="modal-dialog" role="document" id="share-dialog-after">
+                    <div class="modal-content" id="share-content-after">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="share_code">Share the Code</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <p>Do you want to save the file ?</p> -->
+                            <form>
+                                <div class="form-group"> <label for="name">URL:</label><span id="share-copy" onclick="copy_share_url()"><i
+                          class="far fa-copy"></i></span>
+                                    <input class="form-control" id="share_url_box" value="http://localhost:8888/onlineide/code/HoiJqp9nQT" readonly="readonly" type="text">
+                                </div>
+                            </form>
+                            <div class="addthis_inline_share_toolbox_7qby" id="addthis_share_modal"></div>
+                        </div>
+                        <!-- <div class="modal-footer">
+            </div> --></div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- About Site modal -->
+            <div class="modal" tabindex="-1" role="dialog" id="aboutSiteModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">×</span></button>
+                            <h2 class="modal-title"><strong>About online-python.com</strong></h2>
+                        </div>
+                        <div class="modal-body abountModalBody">
+                            <p><a href="/" target="_blank">Online Python IDE</a> is a web-based tool powered by <a href="https://ace.c9.io/" target="_blank">ACE</a> code editor. This tool can be used to learn, build, run, test your python script. You can open
+                                the script from your local and continue to build using this IDE. Code and output can be downloaded to local.</p>
+                            <h3><strong>Keyboard Shortcuts</strong></h3>
+                            <ul style="font-size: larger;">
+                                <li>Run Code - F8</li>
+                                <li>Share Code - F9</li>
+                                <li>Save Code - F10</li>
+                                <li>Open Editor Command Palette - F1</li>
+                            </ul>
+                            <h3><strong>Report a bug</strong></h3>
+                            <p>If you encounter a bug or have questions or suggestions for improvements, please report it via feedback.</p>
+                            <h3><strong>Data policy</strong></h3>
+                            <p>No data is saved in the server. The code is sent to the server for execution and will be cleared after completion. Shared Code will be saved in the server till the selected expiry period.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <p> Copyright © 2020 online-python.com</p>
+                            <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <script type="text/javascript">
+                ace.require("ace/ext/language_tools");
+                var editor = ace.edit("editor");
+                ace.require('ace/ext/settings_menu').init(editor);
+                var editor_cnt = 2,
+                    editor_index = 1,
+                    active_editor = 2,
+                    editor_session = [];
+                var request, init_ts, open_file_name;
+                var lang = 'python3';
+                default_content = "\n# Input the value to save it \nvalue = int(input('What is the value')) \n\n\# Input the total value to save it \ntotalValue= int(input('What is the total value')) \n\n# Apply the percentage formula \npercentage=(value/totalValue)*100 \n\n#Show the percentage \nprint(percentage,' % ') ";
+                var prev_result = 'in';
+                var site_url = "https://www.online-python.com/"
+                var base_url = "https://www.online-python.com/"
+                var share_url = base_url;
+                var exe_cnt = 0;
+                var addthis_share = {
+                    url: share_url,
+                    // title: "THE TITLE",
+                    // description: "THE DESCRIPTION",
+                    // media: "THE IMAGE"
+                }
+    
+    
+                var isMobile = window.orientation > -1;
+    
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "preventOpenDuplicates": true,
+                    "maxOpened": 1,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    // "showMethod": "show",
+                    // "hideMethod": "hide"
+                };
+    
+                var instance = Split(['#mi', '#d'], {
+                    direction: 'vertical',
+                    sizes: [66, 28],
+                    gutterSize: 5,
+                    cursor: 'row-resize',
+                    minSize: [0, 180],
+                    onDrag: function() {
+                        editor.resize();
+                    },
+                });
+    
+                function term_expand() {
+                    var element = document.getElementById('term-expand').innerHTML;
+                    if (element === '<i class="fas fa-expand-alt fa-lg"></i>') {
+                        instance.setSizes([0, 94]);
+                        editor.resize();
+                        document.getElementById('term-expand').innerHTML = '<i class="fas fa-compress-alt fa-lg"></i>'
+                    } else {
+                        instance.setSizes([66, 28]);
+                        editor.resize();
+                        document.getElementById('term-expand').innerHTML = '<i class="fas fa-expand-alt fa-lg"></i>'
+                    }
+                    $('#term-expand').blur();
+                    $('[data-toggle="tooltip"]').tooltip('hide');
+                }
+    
+                editor.setOptions({
+                    enableBasicAutocompletion: true, // the editor completes the statement when you hit Ctrl + Space
+                    enableLiveAutocompletion: true, // the editor completes the statement while you are typing
+                    enableSnippets: true,
+                    showPrintMargin: false, // hides the vertical limiting strip
+                    fixedWidthGutter: true,
+                    autoScrollEditorIntoView: true,
+                    copyWithEmptySelection: true,
+                    highlightActiveLine: false,
+                });
+    
+                //editor.setTheme("ace/theme/textmate");
+                editor.setTheme("ace/theme/tomorrow_night_blue");
+                editor.container.style.lineHeight = 1.5;
+    
+                editor_session[0] = ace.createEditSession(default_content, "ace/mode/python");
+                editor.setSession(editor_session[0]);
+                var active_editor_id = $('#editor-1').children('a');
+                var active_file_name = 'main.py';
+                var repl_host = get_host();
+                var command_list = [];
+                var command_index = 0;
+                var cur_cmd;
+                var hint_glow;
+    
+                var y = document.getElementById('editor_footer');
+                var output = document.getElementById('output');
+                var exec_detail = document.getElementById('output-status');
+                var progress_status = document.getElementById('progress-status');
+    
+                $(function() {
+                    $('[data-toggle="tooltip"]').tooltip({
+                        delay: {
+                            show: 750,
+                            hide: 50
+                        }
+                    })
+                });
+    
+                $(function() {
+                    $('[data-toggle="popover"]').popover({
+                        delay: {
+                            "show": 0,
+                            hide: 0
+                        }
+                    })
+                });
+    
+                $('.popover-dismiss').popover({
+                    trigger: 'hover'
+                });
+    
+    
+                $(".nav-tabs").on("click", "a", function(e) {
+                        // e.stopPropagation();
+                        e.preventDefault();
+                        detail_chk = (e.detail === undefined) ? 1 : e.detail;
+                        if (!$(this).hasClass('add-editor') && !$(this).children('input').hasClass('thVal') && detail_chk == 1) {
+                            active_editor = parseInt($(this).parent().attr('id').split('-')[1]);
+                            active_editor_id = $(this);
+    
+                            editor.setSession(editor_session[active_editor - 1]);
+                            active_file_name = $(this).html();
+                            $(this).tab('show');
+                            editor.focus();
+                            update_editor_footer();
+                            undo_redo_update();
+                        }
+                    })
+                    .on("click", "span", function() {
+                        close_tab = $(this).parent();
+                        close_tab.children('a').click();
+                        $('#close_file_title').text('Close - ' + active_file_name);
+                        if (editor.getValue() === "") {
+                            close_editor_tab();
+                        } else {
+                            $("#closeEditorTab").modal('show');
+                        }
+                    });
+    
+                $('#redo-editor').attr('disabled', 'disabled');
+                $('#undo-editor').attr('disabled', 'disabled');
+    
+                $('#rename_file').click(function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    active_editor_id.dblclick();
+                });
+    
+                $('#undo-editor').click(function(e) {
+                    editor.session.getUndoManager().undo();
+                    undo_redo_update();
+    
+                });
+    
+                $('#redo-editor').click(function(e) {
+                    editor.session.getUndoManager().redo();
+                    undo_redo_update();
+                });
+    
+                editor.getSession().on('change', function() {
+                    undo_redo_update();
+                });
+    
+                let theme = localStorage.getItem('theme') !== undefined ? localStorage.getItem('theme') : 'light'
+    
+                if (theme === 'dark') {
+                    $('body').addClass('dark');
+                    document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-sun fa-lg"></i>';
+                    editor.setTheme("ace/theme/tomorrow_night_bright");
+                }
+    
+                $('#toggle-theme').click(function(e) {
+                    document.body.classList.toggle('dark');
+                    if ($('body').hasClass("dark")) {
+                        editor.setTheme("ace/theme/tomorrow_night_bright");
+                        document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-sun fa-lg"></i>';
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        editor.setTheme("ace/theme/textmate");
+                        document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-moon fa-lg"></i>';
+                        localStorage.setItem('theme', 'dark');
+                    }
+                    $('#toggle-theme').blur();
+                    $('[data-toggle="tooltip"]').tooltip('hide');
+                });
+    
+                $('.add-editor').click(function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    editor_cnt += 1;
+                    editor_index += 1;
+                    var id = editor_cnt;
+    
+                    active_editor = id;
+                    editor_session[active_editor - 1] = ace.createEditSession('', "ace/mode/python");
+                    editor.setSession(editor_session[active_editor - 1]);
+    
+                    $(this).closest('li').before('<li id="editor-' + id + '"><a data-toggle="tab">Untitled' + id + '.py</a> <span> <i class="fa fa-times"></i></span></li>');
+                    // $('.nav-tabs li:nth-child(' + id + ') a').click();
+    
+                    active_editor_id = $(".nav-tabs li").children('a').last();
+                    active_editor_id.tab('show');
+                    active_editor_id.dblclick();
+                    update_editor_footer();
+                    undo_redo_update();
+    
+                    editor.selection.on('changeCursor', function(e) {
+                        update_editor_footer();
+                    });
+    
+                    editor.selection.on('changeSelection', function(e) {
+                        update_editor_footer();
+                    });
+    
+                    editor.getSession().on('change', function() {
+                        undo_redo_update();
+                    });
+    
+                });
+    
+                $(document).on('dblclick', '.nav-tabs > li > a', function(event) {
+                    if ($(event.target).attr('class') != "thVal") {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        var currentEle = $(this);
+                        var value = $(this).html();
+                        if (value.search('<input') === -1) updateVal(currentEle, value);
+                    }
+                });
+    
+                editor.focus();
+                editor.navigateFileEnd();
+    
+                update_editor_footer();
+    
+                editor.selection.on('changeCursor', function(e) {
+                    update_editor_footer();
+                });
+    
+                editor.selection.on('changeSelection', function(e) {
+                    update_editor_footer();
+                });
+    
+                $('.status button').attr('disabled', 'disabled');
+                $('#stop-btn').attr('disabled', 'disabled');
+    
+                socket_options = {
+                    transports: ["websocket"],
+                    'timeout': 3000,
+                    'connect timeout': 3000,
+                    'reconnection': true,
+                    'reconnectionDelay': 1000,
+                    'reconnectionDelayMax': 5000,
+                    'reconnectionAttempts': 5
+                };
+    
+                socket_options['query'] = {
+                    type: "shell"
+                };
+    
+                // ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
+                //     module.init(editor);
+                // });
+    
+                $(document).keyup(function(e) {
+                    IsCtrl = false;
+                    IsShift = false;
+                }).keydown(function(e) {
+    
+                    // first capture Ctrl 
+                    if (e.which == 17) {
+                        IsCtrl = true;
+                    }
+    
+                    // now capture Shift 
+                    if (e.which == 16) {
+                        IsShift = true;
+                    }
+    
+                    switch (e.which) {
+    
+                        // now capture S and if Ctrl is pressed                                                                                                                                                                                          
+                        // case 75: 
+                        //     if (IsCtrl) { alert("Ctrl K pressed"); editor.showKeyboardShortcuts();} 
+                        //     if (IsShift) { alert("Shift R pressed");  } 
+                        //     e.preventDefault(); 
+                        //     break;
+    
+                        // capture F8
+                        case 119:
+                            run_python();
+                            e.preventDefault();
+                            break;
+                            //F9
+                        case 120:
+                            share_code_modal();
+                            e.preventDefault();
+                            break;
+                            //F10
+                        case 121:
+                            save_code_modal();
+                            e.preventDefault();
+                            break;
+    
+                            // capture ESC
+                            // case 27: stop_python(); e.preventDefault(); break;
+                    }
+                });
+    
+                $('#output').on('click', function() {
+                    $('#term-input').focus();
+                });
+    
+                window.onbeforeunload = goodbye;
+            </script>
+            <script>
+                (function() {
+                    if (typeof _bsa !== 'undefined' && _bsa) {
+                        _bsa.init('stickybox', 'CEBICK3U', 'placement:wwwonline-pythoncom');
+                    }
+                })();
+            </script>
+  
+        </div>
+    </body>
+    
+    </html>
+    <!-- partial -->
       
-<body>
-
-
-  <link rel="stylesheet" href="https://www.online-python.com/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="https://www.online-python.com/assets/dist/css/ide.css?v=a1">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- jQuery 3 -->
-  <!-- Bootstrap 3.3.7 -->
-  <script src="https://www.online-python.com/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="https://www.online-python.com/assets/dist/js/ide.js?v=a1"></script>
-  <!-- Ace Editor -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ace.js" type="text/javascript" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-language_tools.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-settings_menu.min.js" type="text/javascript" charset="utf-8"></script>
-  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-keybinding_menu.min.js" type="text/javascript" charset="utf-8"></script>
-  <!-- Split JS -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.2/split.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-
-  <style>
-.container {
-transform: translate3d(100%, 0, 0);
-transition: 0.5s;
-}
-.container.slide-in {
-transform: translate3d(0, 0, 0);
-}
-    </style>
-
-  <div>
-    <script>
-      trueorfalse = false
-      function slidein(){
-        trueorfalse = !trueorfalse
-        if (trueorfalse){
-        $('.container').addClass('slide-in');
-        }else{
-          $('.container').removeClass('slide-in');
-        }
-      }
-      </script>
-      <div class="container" id="container" style="position:absolute;width: 35vw;left: 65vw;">
-          <Button onclick="slidein()" style="position:relative;top:5vw;left:-4.3vw;">see code</Button>
-          <div id="header-control"><br>
-          </div>
-          <div id="mi" class="split">
-              
-              <div id="editor"></div>
-              <div class="boxed" id="editor_footer"></div>
-              <div class="control-bar">
-                  <div id="control-btn"> <button type="button" class="btn btn-sm" id="run-btn" onclick="run_python()" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="F8"><i
-                class="fa fa-play"></i> <strong>Run</strong></button>
-                  </div>
-
-                  <input disabled style="width:20px;" id="input_arguments" placeholder="">
-              </div>
-          </div>
-          <div id="d" class="split">
-              <div class="boxed1" id="output_header">
-                  <div id="hint-section"></div>
-                  <div class="btn-group status" id="tool-btn">&nbsp; <button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Copy to Clipboard" class="btn btn-default btn-sm status" onclick="copy_output()"></button><button type="button" data-toggle="tooltip"
-                          data-container="body" data-placement="right" title="Download" class="btn btn-default btn-sm status" onclick="download_modal()"></button>
-                      <button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Clear" class="btn btn-default btn-sm status" onclick="clear_output()"></button>
-                  </div>
-                  &nbsp;<button type="button" data-toggle="tooltip" data-container="body" data-placement="right" title="Start Terminal" class="btn btn-default btn-sm status" id="start-term" onclick="start_terminal()"></button><button type="button" data-toggle="tooltip"
-                      data-container="body" data-placement="right" title="Expand/Collapse" class="btn btn-default btn-sm status" id="term-expand" onclick="term_expand()"></button>
-                  <div id="output-status"></div>
-              </div>
-              <div id="terminal">
-                  <div id="progress-status"></div>
-                  <div class="boxed2" id="output">
-                      <div class="wrapper" id="wrap"></div>
-                      <form id="term-form"> <input id="term-input" autocomplete="off">
-                      </form>
-                  </div>
-                  <div id="terminal-ad"> </div>
-              </div>
-          </div>
-      </div>
-      <!-- Save Result modal -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="downloadResult">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">×</span></button>
-                      <h3 class="modal-title">Download Result</h3>
-                  </div>
-                  <div class="modal-body">
-                      <form>
-                          <div class="form-group"> <label for="name">File Name:</label> <input class="form-control" id="download_file_name" value="main_output.txt" type="text">
-                          </div>
-                      </form>
-                  </div>
-                  <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" onclick="download_output()" data-dismiss="modal">Download</button>
-                  </div>
-              </div>
-              <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-      <!-- Delete Editor Tab modal -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="closeEditorTab">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">×</span></button>
-                      <h3 class="modal-title" id="close_file_title">Close File</h3>
-                  </div>
-                  <div class="modal-body">
-                      <p>Your changes will be lost. Are you sure you want to Close the file ?</p>
-                  </div>
-                  <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                      <button type="submit" class="btn btn-sm" onclick="close_editor_tab()" data-dismiss="modal">Yes</button>
-                  </div>
-              </div>
-              <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-      <!-- Delete Editor Tab modal -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="saveEditorTab">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">×</span></button>
-                      <h3 class="modal-title" id="save_file_title">Save</h3>
-                  </div>
-                  <div class="modal-body">
-                      <p>Do you want to save the file ?</p>
-                      <form>
-                          <div class="form-group"> <label for="name">File Name:</label> <input class="form-control" id="code_file_name" value="main.py" type="text">
-                          </div>
-                      </form>
-                  </div>
-                  <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                      <button type="submit" class="btn btn-primary" onclick="download_code()" data-dismiss="modal">Yes</button>
-                  </div>
-              </div>
-              <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-     
-      <!-- /.modal -->
-      <script type="text/javascript">
-          ace.require("ace/ext/language_tools");
-          var editor = ace.edit("editor");
-          ace.require('ace/ext/settings_menu').init(editor);
-          var editor_cnt = 2,
-              editor_index = 1,
-              active_editor = 2,
-              editor_session = [];
-          var request, init_ts, open_file_name;
-          var lang = 'python3';
-          default_content = "\n# Input the value to save it \nvalue = int(input('What is the value')) \n\n\# Input the total value to save it \ntotalValue= int(input('What is the total value')) \n\n# Apply the percentage formula \npercentage=(value/totalValue)*100 \n\n#Show the percentage \nprint(percentage,' % ') ";
-          var prev_result = 'in';
-          var site_url = "https://www.online-python.com/"
-          var base_url = "https://www.online-python.com/"
-          var share_url = base_url;
-          var exe_cnt = 0;
-          var addthis_share = {
-              url: share_url,
-              // title: "THE TITLE",
-              // description: "THE DESCRIPTION",
-              // media: "THE IMAGE"
-          }
-
-
-          var isMobile = window.orientation > -1;
-
-          toastr.options = {
-              "closeButton": true,
-              "debug": false,
-              "newestOnTop": true,
-              "positionClass": "toast-top-right",
-              "preventDuplicates": true,
-              "preventOpenDuplicates": true,
-              "maxOpened": 1,
-              "onclick": null,
-              "showDuration": "100",
-              "hideDuration": "1000",
-              "timeOut": "3000",
-              "extendedTimeOut": "1000",
-              "showEasing": "swing",
-              "hideEasing": "linear",
-              // "showMethod": "show",
-              // "hideMethod": "hide"
-          };
-
-          var instance = Split(['#mi', '#d'], {
-              direction: 'vertical',
-              sizes: [66, 28],
-              gutterSize: 5,
-              cursor: 'row-resize',
-              minSize: [0, 180],
-              onDrag: function() {
-                  editor.resize();
-              },
-          });
-
-          function term_expand() {
-              var element = document.getElementById('term-expand').innerHTML;
-              if (element === '<i class="fas fa-expand-alt fa-lg"></i>') {
-                  instance.setSizes([0, 94]);
-                  editor.resize();
-                  document.getElementById('term-expand').innerHTML = '<i class="fas fa-compress-alt fa-lg"></i>'
-              } else {
-                  instance.setSizes([66, 28]);
-                  editor.resize();
-                  document.getElementById('term-expand').innerHTML = '<i class="fas fa-expand-alt fa-lg"></i>'
-              }
-              $('#term-expand').blur();
-              $('[data-toggle="tooltip"]').tooltip('hide');
-          }
-
-          editor.setOptions({
-              enableBasicAutocompletion: true, // the editor completes the statement when you hit Ctrl + Space
-              enableLiveAutocompletion: true, // the editor completes the statement while you are typing
-              enableSnippets: true,
-              showPrintMargin: false, // hides the vertical limiting strip
-              fixedWidthGutter: true,
-              autoScrollEditorIntoView: true,
-              copyWithEmptySelection: true,
-              highlightActiveLine: false,
-          });
-
-          //editor.setTheme("ace/theme/textmate");
-          editor.setTheme("ace/theme/tomorrow_night_blue");
-          editor.container.style.lineHeight = 1.5;
-
-          editor_session[0] = ace.createEditSession(default_content, "ace/mode/python");
-          editor.setSession(editor_session[0]);
-          var active_editor_id = $('#editor-1').children('a');
-          var active_file_name = 'main.py';
-          var repl_host = get_host();
-          var command_list = [];
-          var command_index = 0;
-          var cur_cmd;
-          var hint_glow;
-
-          var y = document.getElementById('editor_footer');
-          var output = document.getElementById('output');
-          var exec_detail = document.getElementById('output-status');
-          var progress_status = document.getElementById('progress-status');
-
-          $(function() {
-              $('[data-toggle="tooltip"]').tooltip({
-                  delay: {
-                      show: 750,
-                      hide: 50
-                  }
-              })
-          });
-
-          $(function() {
-              $('[data-toggle="popover"]').popover({
-                  delay: {
-                      "show": 0,
-                      hide: 0
-                  }
-              })
-          });
-
-          $('.popover-dismiss').popover({
-              trigger: 'hover'
-          });
-
-
-          $(".nav-tabs").on("click", "a", function(e) {
-                  // e.stopPropagation();
-                  e.preventDefault();
-                  detail_chk = (e.detail === undefined) ? 1 : e.detail;
-                  if (!$(this).hasClass('add-editor') && !$(this).children('input').hasClass('thVal') && detail_chk == 1) {
-                      active_editor = parseInt($(this).parent().attr('id').split('-')[1]);
-                      active_editor_id = $(this);
-
-                      editor.setSession(editor_session[active_editor - 1]);
-                      active_file_name = $(this).html();
-                      $(this).tab('show');
-                      editor.focus();
-                      update_editor_footer();
-                      undo_redo_update();
-                  }
-              })
-              .on("click", "span", function() {
-                  close_tab = $(this).parent();
-                  close_tab.children('a').click();
-                  $('#close_file_title').text('Close - ' + active_file_name);
-                  if (editor.getValue() === "") {
-                      close_editor_tab();
-                  } else {
-                      $("#closeEditorTab").modal('show');
-                  }
-              });
-
-          $('#redo-editor').attr('disabled', 'disabled');
-          $('#undo-editor').attr('disabled', 'disabled');
-
-          $('#rename_file').click(function(e) {
-              e.stopPropagation();
-              e.preventDefault();
-              active_editor_id.dblclick();
-          });
-
-          $('#undo-editor').click(function(e) {
-              editor.session.getUndoManager().undo();
-              undo_redo_update();
-
-          });
-
-          $('#redo-editor').click(function(e) {
-              editor.session.getUndoManager().redo();
-              undo_redo_update();
-          });
-
-          editor.getSession().on('change', function() {
-              undo_redo_update();
-          });
-
-          let theme = localStorage.getItem('theme') !== undefined ? localStorage.getItem('theme') : 'light'
-
-          if (theme === 'dark') {
-              $('body').addClass('dark');
-              document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-sun fa-lg"></i>';
-              editor.setTheme("ace/theme/tomorrow_night_bright");
-          }
-
-          $('#toggle-theme').click(function(e) {
-              document.body.classList.toggle('dark');
-              if ($('body').hasClass("dark")) {
-                  editor.setTheme("ace/theme/tomorrow_night_bright");
-                  document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-sun fa-lg"></i>';
-                  localStorage.setItem('theme', 'dark');
-              } else {
-                  editor.setTheme("ace/theme/textmate");
-                  document.getElementById('toggle-theme').innerHTML = '<i class="fas fa-moon fa-lg"></i>';
-                  localStorage.setItem('theme', 'dark');
-              }
-              $('#toggle-theme').blur();
-              $('[data-toggle="tooltip"]').tooltip('hide');
-          });
-
-          $('.add-editor').click(function(e) {
-              e.stopPropagation();
-              e.preventDefault();
-              editor_cnt += 1;
-              editor_index += 1;
-              var id = editor_cnt;
-
-              active_editor = id;
-              editor_session[active_editor - 1] = ace.createEditSession('', "ace/mode/python");
-              editor.setSession(editor_session[active_editor - 1]);
-
-              $(this).closest('li').before('<li id="editor-' + id + '"><a data-toggle="tab">Untitled' + id + '.py</a> <span> <i class="fa fa-times"></i></span></li>');
-              // $('.nav-tabs li:nth-child(' + id + ') a').click();
-
-              active_editor_id = $(".nav-tabs li").children('a').last();
-              active_editor_id.tab('show');
-              active_editor_id.dblclick();
-              update_editor_footer();
-              undo_redo_update();
-
-              editor.selection.on('changeCursor', function(e) {
-                  update_editor_footer();
-              });
-
-              editor.selection.on('changeSelection', function(e) {
-                  update_editor_footer();
-              });
-
-              editor.getSession().on('change', function() {
-                  undo_redo_update();
-              });
-
-          });
-
-          $(document).on('dblclick', '.nav-tabs > li > a', function(event) {
-              if ($(event.target).attr('class') != "thVal") {
-                  event.stopPropagation();
-                  event.preventDefault();
-                  var currentEle = $(this);
-                  var value = $(this).html();
-                  if (value.search('<input') === -1) updateVal(currentEle, value);
-              }
-          });
-
-          editor.focus();
-          editor.navigateFileEnd();
-
-          update_editor_footer();
-
-          editor.selection.on('changeCursor', function(e) {
-              update_editor_footer();
-          });
-
-          editor.selection.on('changeSelection', function(e) {
-              update_editor_footer();
-          });
-
-          $('.status button').attr('disabled', 'disabled');
-          $('#stop-btn').attr('disabled', 'disabled');
-
-          socket_options = {
-              transports: ["websocket"],
-              'timeout': 3000,
-              'connect timeout': 3000,
-              'reconnection': true,
-              'reconnectionDelay': 1000,
-              'reconnectionDelayMax': 5000,
-              'reconnectionAttempts': 5
-          };
-
-          socket_options['query'] = {
-              type: "shell"
-          };
-
-          // ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
-          //     module.init(editor);
-          // });
-
-          $(document).keyup(function(e) {
-              IsCtrl = false;
-              IsShift = false;
-          }).keydown(function(e) {
-
-              // first capture Ctrl 
-              if (e.which == 17) {
-                  IsCtrl = true;
-              }
-
-              // now capture Shift 
-              if (e.which == 16) {
-                  IsShift = true;
-              }
-
-              switch (e.which) {
-
-                  // now capture S and if Ctrl is pressed                                                                                                                                                                                          
-                  // case 75: 
-                  //     if (IsCtrl) { alert("Ctrl K pressed"); editor.showKeyboardShortcuts();} 
-                  //     if (IsShift) { alert("Shift R pressed");  } 
-                  //     e.preventDefault(); 
-                  //     break;
-
-                  // capture F8
-                  case 119:
-                      run_python();
-                      e.preventDefault();
-                      break;
-                      //F9
-                  case 120:
-                      share_code_modal();
-                      e.preventDefault();
-                      break;
-                      //F10
-                  case 121:
-                      save_code_modal();
-                      e.preventDefault();
-                      break;
-
-                      // capture ESC
-                      // case 27: stop_python(); e.preventDefault(); break;
-              }
-          });
-
-          $('#output').on('click', function() {
-              $('#term-input').focus();
-          });
-
-          window.onbeforeunload = goodbye;
-      </script>
-      <script>
-          (function() {
-              if (typeof _bsa !== 'undefined' && _bsa) {
-                  _bsa.init('stickybox', 'CEBICK3U', 'placement:wwwonline-pythoncom');
-              }
-          })();
-      </script>
-      <!-- Go to www.addthis.com/dashboard to customize your tools -->
-      <!-- partial -->
-  </div>
-</body>
-
-
-
+    </body>
+    
+    </html>
+    

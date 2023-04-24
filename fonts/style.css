@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Oracle Sans Condensed';
+    src: local('Oracle Sans Condensed Bold'), local('Oracle-Sans-Condensed-Bold'),
+        url('OracleSansCondensed-Bold.woff2') format('woff2'),
+        url('OracleSansCondensed-Bold.woff') format('woff'),
+        url('OracleSansCondensed-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }

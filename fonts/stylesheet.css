@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'RX100';
+    src: url('RX100-Regular.eot');
+    src: local('RX100'), local('RX100-Regular'),
+        url('RX100-Regular.eot?#iefix') format('embedded-opentype'),
+        url('RX100-Regular.woff2') format('woff2'),
+        url('RX100-Regular.woff') format('woff'),
+        url('RX100-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
