@@ -64,7 +64,9 @@ class BlocksManager{
   ParentBlocks = {}
   Blocks = {}
   CurrentClick = ""
-  constructor(){}
+  constructor(){
+
+  }
 
   ManageConnectionCreation(id){
 
@@ -79,15 +81,20 @@ class BlocksManager{
           BlockManager.getBlockFromId(id).SetConnectFrom(this.CurrentClick)
           BlockManager.getBlockFromId(this.CurrentClick).Connect2Block(id)
           this.CurrentClick = ""
+        }else if(this.CurrentClick == id){
+          var block = BlockManager.getBlockFromId(this.CurrentClick)
+          jsPlumb.deleteEndpoint(block.GetDotId())
+          console.log("asd")
+          this.CurrentClick = ""
         }else if (BlockManager.getBlockFromId(id).CanConnectFrom()){
           BlockManager.getBlockFromId(id).SetDotId(jsPlumb.addEndpoint(id, RightsourceOption));
           this.CurrentClick = id
-        }else if(this.CurrentClick == id){
-          this.CurrentClick = ""
         }
       
 
   } 
+
+
 
   addBlockAsParent(block){
     this.ParentBlocks[block.getBlockId()] = block;
@@ -232,10 +239,10 @@ class BlocksManager{
       value.ReOrderBlocksConnectedTo()
       
       value.GetBlocksConnectedTo().forEach(function (item, index) {
-        console.log("*"+key1+"*")
+        console.log("<!&*>"+key1+"<!&*>")
         console.log(BlockManager.getBlockFromId(item).GetBlockLevel())
         console.log(BlockManager.getBlockFromId(item).GenerateLevel())
-        GeneratedCod = GeneratedCod.replace("*"+key1+"*", BlockManager.getBlockFromId(item).GenerateLevel()+BlockManager.getBlockFromId(item).GetPythonCode()+"\n"+"*"+key1+"*")
+        GeneratedCod = GeneratedCod.replace("<!&*>"+key1+"<!&*>", BlockManager.getBlockFromId(item).GenerateLevel()+BlockManager.getBlockFromId(item).GetPythonCode()+"\n"+"<!&*>"+key1+"<!&*>")
         delete NewBlocks[item]
       })
       //GeneratedCod+=value.GetPythonCode()
@@ -246,13 +253,18 @@ class BlocksManager{
       console.log(key1)
       
       if (GeneratedCod.includes(value.GetConnectFrom())){
-      GeneratedCod = GeneratedCod.replace("*"+value.GetConnectFrom()+"*", BlockManager.getBlockFromId(key1).GenerateLevel()+BlockManager.getBlockFromId(key1).GetPythonCode()+"\n"+"*"+value.GetConnectFrom()+"*")
+      GeneratedCod = GeneratedCod.replace("<!&*>"+value.GetConnectFrom()+"<!&*>", BlockManager.getBlockFromId(key1).GenerateLevel()+BlockManager.getBlockFromId(key1).GetPythonCode()+"\n"+"<!&*>"+value.GetConnectFrom()+"<!&*>")
       delete NewBlocks[key1]
       }
     }
   }
-
-    console.log(GeneratedCod)
+  for (const [key1, value] of Object.entries(this.Blocks)) {
+    GeneratedCod = GeneratedCod.replace("<!&*>"+key1+"<!&*>","")
+  }
+  for (const [key1, value] of Object.entries(this.ParentBlocks)) {
+    GeneratedCod = GeneratedCod.replace("<!&*>"+key1+"<!&*>","")
+  }
+  editor.setValue(GeneratedCod);
   }
 
 }
@@ -338,6 +350,7 @@ class Block{
     constructor(Id){
       this.StringId=Id;
       this.OnDelete()
+    
     }
   
   }
@@ -348,11 +361,67 @@ class Block{
       tag.id = RandomStringId
       tag.style.position = 'absolute';
       tag.style.width = "200px";
-      document.getElementById('aaaasdasdasd').appendChild(tag);
+      document.getElementById('body').appendChild(tag);
       tag.innerHTML =`<div id="`+RandomStringId+"3"+`">
-      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:90%;top:20px;z-index:100;"><img  height="20" src="img/x-png.png"></img></div>
-      <td><a style="position: relative;width:200px;"class="list-group-item list-group-item-action py-2 ripple active text" >IF STATEMENT
-        <span class="dot"id="`+RandomStringId+"1"+`"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  <img width="30"style="left:50%" src="https://images.squarespace-cdn.com/content/v1/5cc9adbd815512424050bffb/1563554742361-0AB7HKIZIBOX1322RJMC/Connect-Logo-print_mark-only-color.png"></img></span>
+      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+ 
+      <style>
+      #`+(RandomStringId+"dell")+`:hover{
+        transition: 0.70s;
+        -webkit-transition: 0.70s;
+        -moz-transition: 0.70s;
+        -ms-transition: 0.70s;
+        -o-transition: 0.70s;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      </style>
+      
+      </div>
+      <td><a style="position: relative;width:200px;height:75px;"class="list-group-item list-group-item-action py-2 ripple active text" >IF STATEMENT
+        <span class="dot"id="`+RandomStringId+"1"+`" style="top;30px;"> 
+        <div style="width:30px;position:relative;left:80%;top:40%;height:45px;">
+      <div style="
+      position:absolute;
+      left:-150px;
+      top:-7px;
+      "
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+      </div>
+
+
+      <div style="
+      position:absolute;
+      left:0px;
+      top:-7px;
+      "
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+</svg>
+
+      </div>
+
+
+
+</div>
+        </span>
         </a></td>
         
         <div class="list-group-item list-group-item-action py-2 ripple active text" style="relative;width:200px;">
@@ -376,7 +445,7 @@ class Block{
     }
 
     GetPythonCode(){
-      return "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+this.RandomStringId+"operator").val()+$("#"+this.RandomStringId+"var2").val()+":\n*"+this.StringId+"*"
+      return "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+this.RandomStringId+"operator").val()+$("#"+this.RandomStringId+"var2").val()+":\n<!&*>"+this.StringId+"<!&*>"
       
     }
     
@@ -399,7 +468,7 @@ class Block{
       var tag = document.createElement(RandomStringId);
       tag.id = RandomStringId
       tag.style.position = 'absolute';
-      document.getElementById('aaaasdasdasd').appendChild(tag);
+      document.getElementById('body').appendChild(tag);
       tag.innerHTML =`<div id="`+RandomStringId+"3"+`">
       <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:90%;top:20px;z-index:100;"><img height="20" src="img/x-png.png"></img></div>
       <td><a style="position: relative;width:200px;font-size:15px;"class="list-group-item list-group-item-action py-2 ripple active text" >SET/UPDATE VARIABLE
@@ -442,22 +511,8 @@ class Block{
   window.addEventListener("DOMContentLoaded", (event) => {
     BlockManager = new BlocksManager();
     test = new IfStatementBlock(MakeRandomString(70));
-    test1 = new VariableBlock(MakeRandomString(70));
     BlockManager.addBlockAsParent(test)
-    test11 = new VariableBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test11)
-    test2 = new IfStatementBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test2)
-    BlockManager.addBlockAsParent(test1)
 
-    test = new IfStatementBlock(MakeRandomString(70));
-    test1 = new VariableBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test)
-    test11 = new VariableBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test11)
-    test2 = new IfStatementBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test2)
-    BlockManager.addBlockAsParent(test1)
     addEventListener('mousemove', (event) => {jsPlumb.repaintEverything();});
 });
 
