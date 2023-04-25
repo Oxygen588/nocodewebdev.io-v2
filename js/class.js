@@ -86,7 +86,7 @@ class BlocksManager{
         }else if(this.CurrentClick == id){
           var block = BlockManager.getBlockFromId(this.CurrentClick)
           jsPlumb.deleteEndpoint(block.GetDotId())
-          console.log("asd")
+          //console.log("asd")
           document.getElementById(id+">").style.transform = 'translate3d(0, 0, 0)';
           document.getElementById(id+"<").style.transform = 'translate3d(0, 0, 0)';
           this.CurrentClick = ""
@@ -146,7 +146,7 @@ class BlocksManager{
         BlockManager.getBlockFromId(block.GetConnectFrom()).DisconnectFromThisBlock(id)
         
         //if (BlockManager.getBlockFromId(block.GetConnectFrom()).CanDeleteDot()){
-          console.log(BlockManager.getBlockFromId(block.GetConnectFrom()).GetDotId())
+          //console.log(BlockManager.getBlockFromId(block.GetConnectFrom()).GetDotId())
           jsPlumb.deleteEndpoint(BlockManager.getBlockFromId(block.GetConnectFrom()).GetDotId())
         //}
       }
@@ -240,27 +240,27 @@ class BlocksManager{
     this.Blocks = this.ReOrderBlocksByHeight()
     for (const [key, value] of Object.entries(this.ParentBlocks)) {
       GeneratedCod+="\n"+value.GetPythonCode()
-      //console.log(key, value);
+      ////console.log(key, value);
     }
-    console.log(NewBlocks)
+    //console.log(NewBlocks)
     for (const [key1, value] of Object.entries(this.ParentBlocks)) {
 
-      console.log(value.GetBlocksConnectedTo())
+      //console.log(value.GetBlocksConnectedTo())
       value.ReOrderBlocksConnectedTo()
       
       value.GetBlocksConnectedTo().forEach(function (item, index) {
-        console.log("<!&*>"+key1+"<!&*>")
-        console.log(BlockManager.getBlockFromId(item).GetBlockLevel())
-        console.log(BlockManager.getBlockFromId(item).GenerateLevel())
+        //console.log("<!&*>"+key1+"<!&*>")
+        //console.log(BlockManager.getBlockFromId(item).GetBlockLevel())
+        //console.log(BlockManager.getBlockFromId(item).GenerateLevel())
         GeneratedCod = GeneratedCod.replace("<!&*>"+key1+"<!&*>", BlockManager.getBlockFromId(item).GenerateLevel()+BlockManager.getBlockFromId(item).GetPythonCode()+"\n"+"<!&*>"+key1+"<!&*>")
         delete NewBlocks[item]
       })
       //GeneratedCod+=value.GetPythonCode()
     }
-    console.log(NewBlocks)
+    //console.log(NewBlocks)
     while ( Object.keys(NewBlocks).length>0){
     for (const [key1, value] of Object.entries(NewBlocks)) {
-      console.log(key1)
+      //console.log(key1)
       
       if (GeneratedCod.includes(value.GetConnectFrom())){
       GeneratedCod = GeneratedCod.replace("<!&*>"+value.GetConnectFrom()+"<!&*>", BlockManager.getBlockFromId(key1).GenerateLevel()+BlockManager.getBlockFromId(key1).GetPythonCode()+"\n"+"<!&*>"+value.GetConnectFrom()+"<!&*>")
@@ -351,7 +351,7 @@ class Block{
       this.BlocksConnectedTo.splice(this.BlocksConnectedTo.indexOf(id), 1);
     }
     OnDelete(){
-      console.log(this.StringId)
+      //console.log(this.StringId)
   
     }
     getBlockId(){
@@ -366,7 +366,7 @@ class Block{
   }
   class IfStatementBlock extends Block{
     constructHtml(RandomStringId){
-      console.log(RandomStringId)
+      //console.log(RandomStringId)
       var tag = document.createElement(RandomStringId);
       tag.id = RandomStringId
       tag.style.position = 'absolute';
@@ -598,7 +598,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
   
     constructor(randomString){
       super(randomString);
-      console.log(randomString)
+      //console.log(randomString)
       this.RandomStringId =randomString;
       this.constructHtml(this.RandomStringId);
       $( "#"+this.RandomStringId).draggable();
@@ -644,7 +644,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     }
     constructor(randomString){
       super(randomString);
-      console.log(randomString)
+      //console.log(randomString)
       this.RandomStringId =randomString;
       this.constructHtml(this.RandomStringId);
       $( "#"+this.RandomStringId).draggable();
@@ -653,12 +653,15 @@ border: 1px solid rgba(255, 255, 255, 0.83);
   
   window.addEventListener("DOMContentLoaded", (event) => {
     BlockManager = new BlocksManager();
-    test = new IfStatementBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test)
-    test1 = new IfStatementBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test1)
+    //test = new IfStatementBlock(MakeRandomString(70));
+   // BlockManager.addBlockAsParent(test)
+
+    Sidebar = new SideBar()
+    Sidebar.addBlockOption("IF STATEMENT")
+    Sidebar.createSidebar()
     $('#body').on('click', function() {
       jsPlumb.repaintEverything();BlockManager.CreateCode();
+      
   });
   $("#body")
     .mousedown(function() {

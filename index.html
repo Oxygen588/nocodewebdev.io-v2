@@ -205,6 +205,7 @@ ul li {
     
         <script type="text/javascript" src="./js/functions.js" ></script>
         <script  type="text/javascript" src="./js/class.js" ></script>
+        <script  type="text/javascript" src="./js/sidebar.js" ></script>
       </head>
 
     <body id="body" class="bg-gray-250">
@@ -222,16 +223,11 @@ ul li {
 
 
 <div style="z-index:1001" id="sidebaroptions">
-<aside style="position: absolute;width: 10%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-150 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside style="position: absolute;width: 20%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-2 z-40 w-150 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
 
    
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" id="SideBar">
    
-<a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <h5 style="text-align: center;" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">IF STATEMENT</h5>
-    <p  style="text-align: center;" class="font-normal text-gray-700 dark:text-gray-400">You can use this to create conditions.</p>
-    <img style="position:relative;width: 50px; left:28%;" src="./img/algorithm.png"></img>
-</a>
 
     </div>
 
@@ -239,7 +235,7 @@ ul li {
  </aside>
 
  <Button onclick="slideinbar()"style="
- position:absolute;top:9vw;left:7vw;
+ position:absolute;top:9vw;left:16vw;
  border-bottom: 50px solid #60a5fa;
 border-left: 25px solid transparent;
 border-right: 25px solid transparent;
@@ -293,11 +289,11 @@ transform: rotate(360deg);
 </body>
 <style>
     #sidebaroptions {
-      transform: translate3d(-10%, 0, 0);
+      transform: translate3d(-20.5%, 0, 0);
       transition: 1.0s;
     }
     #sidebaroptions.slide-in {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(-0.7%, 0, 0);
     }
 </style>
 
