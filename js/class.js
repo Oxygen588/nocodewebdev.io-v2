@@ -480,15 +480,15 @@ if 123==223:
       <div class="list-group-item list-group-item-action py-2 ripple active text" 
       style="
       top: 50%;
-      left: 50%;
-      width: 30em;
-      height: 18em;
+      left: 44%;
+      width: 50em;
+      height: 28em;
       margin-top: -9em;
       margin-left: -15em;
       border: 1px solid #666;
       background-color:#e5e5e5;
       position: fixed;
-      display:block;
+      display:none;
       
       /* From https://css.glass */
 background: rgba(255, 255, 255, 0.67);
@@ -533,14 +533,28 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       font-family:Oracle Sans Condensed;
       left:10px;
       top:5px;
-      text-align: right
+      text-align: center;
+      
       ">
       IF STATEMENT
       </div>
 
 
-      <label for="name"></label>
-  <input style="width:40px;"type="text" id="`+(RandomStringId+"var1")+`">
+      <label
+      for="UserEmail"
+      class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+      style="width:50%;font-size;15px;"
+      >
+      <span class="text-gray-700"> Email </span>
+    
+      <input
+        type="email"
+        id="UserEmail"
+        placeholder="anthony@rhcp.com"
+        class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+        style="color:black;font-size:11px;"
+        />
+    </label>
   <select name="operator" id="`+(RandomStringId+"operator")+`">
   <option value="==">==</option>
   <option value="<"><</option>
@@ -641,7 +655,36 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     BlockManager = new BlocksManager();
     test = new IfStatementBlock(MakeRandomString(70));
     BlockManager.addBlockAsParent(test)
+    test1 = new IfStatementBlock(MakeRandomString(70));
+    BlockManager.addBlockAsParent(test1)
+    $('#body').on('click', function() {
+      jsPlumb.repaintEverything();BlockManager.CreateCode();
+  });
+  $("#body")
+    .mousedown(function() {
+      jsPlumb.repaintEverything();BlockManager.CreateCode();
+    })
 
-    addEventListener('mousemove', (event) => {jsPlumb.repaintEverything();});
+    $(function() {
+      var available = true;
+      function resetavailable(){
+        available=true
+      }
+      $("#body")
+      .mousemove(function() {
+          isDragging = true;
+     
+          if (available){
+          jsPlumb.repaintEverything();BlockManager.CreateCode();
+          available=false
+          setTimeout(resetavailable, 3);
+          }
+       })
+ 
+  
+ 
+  });
+
+    //addEventListener('mousemove', (event) => {jsPlumb.repaintEverything();BlockManager.CreateCode();});
 });
 
