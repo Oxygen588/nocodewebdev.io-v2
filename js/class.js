@@ -488,7 +488,8 @@ if 123==223:
       border: 1px solid #666;
       background-color:#e5e5e5;
       position: fixed;
-      display:none;
+      display:block;
+    
       
       /* From https://css.glass */
 background: rgba(255, 255, 255, 0.67);
@@ -585,6 +586,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
 
       `
+      tag.style.display = 'none';
     }
 
     GetPythonCode(){
