@@ -1,6 +1,6 @@
 buttons=[
-    `<a onclick="    test = new IfStatementBlock(MakeRandomString(70));
-    BlockManager.addBlockAsParent(test)"
+    `<a onclick=" 
+    BlockManager.addBlockAsParent(new IfStatementBlock(MakeRandomString(70)))"
     style="width:25vw;" href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 <h5 style="text-align: center;" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">IF STATEMENT</h5>
 <p  style="text-align: center;" class="font-normal text-gray-700 dark:text-gray-400">You can use this to create conditions.</p>

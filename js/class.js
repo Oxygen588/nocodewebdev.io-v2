@@ -357,6 +357,7 @@ class Block{
     getBlockId(){
       return this.StringId
     }
+
     constructor(Id){
       this.StringId=Id;
       this.OnDelete()
@@ -435,6 +436,7 @@ class Block{
 
         </span>
         <div
+        id="`+RandomStringId+"CodeString"+`"
         style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
         
         >
@@ -548,12 +550,13 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       >
       <span class="text-gray-700"> Email </span>
     
-      <input
+      <input 
         type="email"
-        id="UserEmail"
+        
         placeholder="anthony@rhcp.com"
         class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
         style="color:black;font-size:11px;"
+        id="`+(RandomStringId+"var1")+`"
         />
     </label>
   <select name="operator" id="`+(RandomStringId+"operator")+`">
@@ -564,7 +567,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
   <option value="&&=">&&</option>
   </select>
   <label for="name"></label>
-  <input style="width:40px;"type="text" id="`+(RandomStringId+"var2")+`">
+  <input  style="width:40px;"type="text" id="`+(RandomStringId+"var2")+`">
   </div>
 
   <style>
@@ -586,12 +589,26 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
 
       `
-      tag.style.display = 'none';
+      //tag.style.display = 'none';
+      setTimeout(() => {
+        $("#"+RandomStringId+"operator").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+    }, "1000");
+
     }
 
     GetPythonCode(){
       return "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+this.RandomStringId+"operator").val()+$("#"+this.RandomStringId+"var2").val()+":\n<!&*>"+this.StringId+"<!&*>"
       
+    }
+
+    change(){
+      console.log("asd")
+      //s$("#"+this.RandomStringId+"CodeString").value() = GetPythonCode()
+      document.getElementById(this.RandomStringId+"CodeString").value= this.GetPythonCode()
     }
     
     CanConnectFrom(){
@@ -604,6 +621,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       this.RandomStringId =randomString;
       this.constructHtml(this.RandomStringId);
       $( "#"+this.RandomStringId).draggable();
+  
     }
   }
   
