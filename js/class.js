@@ -440,7 +440,7 @@ class Block{
         style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
         
         >
-if 123==223:
+if var(==)var2:
 </div>
         </a></td>
 
@@ -484,15 +484,14 @@ if 123==223:
       top: 50%;
       left: 44%;
       width: 50em;
-      height: 28em;
+      height: 23em;
       margin-top: -9em;
       margin-left: -15em;
       border: 1px solid #666;
       background-color:#e5e5e5;
       position: fixed;
       display:block;
-    
-      
+      text-align: center;
       /* From https://css.glass */
 background: rgba(255, 255, 255, 0.67);
 border-radius: 16px;
@@ -542,32 +541,33 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       IF STATEMENT
       </div>
 
+      <div class="mb-6" style="outline:none;">
+      <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >What is the first thing you want to compare? Choose a word, number, or variable.</label>
+      <input  placeholder="Type here your variable." id="`+(RandomStringId+"var1")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
 
-      <label
-      for="UserEmail"
-      class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-      style="width:50%;font-size;15px;"
-      >
-      <span class="text-gray-700"> Email </span>
-    
-      <input 
-        type="email"
-        
-        placeholder="anthony@rhcp.com"
-        class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-        style="color:black;font-size:11px;"
-        id="`+(RandomStringId+"var1")+`"
-        />
-    </label>
-  <select name="operator" id="`+(RandomStringId+"operator")+`">
+   
+
+
+  <label  class="block mb-2 text-m font-medium text-gray-900 ">How do you want to compare the two things? Choose an option: equal to (==), not equal to (!=), greater than (>), less than (<), greater than or equal to (>=), or less than or equal to (<=).</label>
+  <select id="`+(RandomStringId+"operator")+`" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option value="==">==</option>
   <option value="<"><</option>
   <option value=">">></option>
   <option value="!=">!=</option>
   <option value="&&=">&&</option>
   </select>
-  <label for="name"></label>
-  <input  style="width:40px;"type="text" id="`+(RandomStringId+"var2")+`">
+
+
+  <div class="mb-6" style="outline:none;">
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >What is the second thing you want to compare? Choose a word, number, or variable.</label>
+  <input placeholder="Type here your variable." id="`+(RandomStringId+"var2")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+
+
+<a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>
+
   </div>
 
   <style>
@@ -585,14 +585,25 @@ border: 1px solid rgba(255, 255, 255, 0.83);
   }
   </style>
 
-
+  
 
 
       `
+      tag.style.display="none"
       //tag.style.display = 'none';
       setTimeout(() => {
         $("#"+RandomStringId+"operator").on( "change", function() {
-          document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+          document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+        $("#"+RandomStringId+"var1").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+         $("#"+RandomStringId+"var2").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
   
   
         } );
@@ -625,51 +636,915 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     }
   }
   
-  
+
+
+
+
+
+
+
+
   class VariableBlock extends Block{
     constructHtml(RandomStringId){
+      //console.log(RandomStringId)
       var tag = document.createElement(RandomStringId);
       tag.id = RandomStringId
       tag.style.position = 'absolute';
+      tag.style.width = "200px";
       document.getElementById('body').appendChild(tag);
       tag.innerHTML =`<div id="`+RandomStringId+"3"+`">
-      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:90%;top:20px;z-index:100;"><img height="20" src="img/x-png.png"></img></div>
-      <td><a style="position: relative;width:200px;font-size:15px;"class="list-group-item list-group-item-action py-2 ripple active text" >SET/UPDATE VARIABLE
-        <span class="dot"id="`+RandomStringId+"1"+`"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  <img width="30"style="left:50%" src="https://images.squarespace-cdn.com/content/v1/5cc9adbd815512424050bffb/1563554742361-0AB7HKIZIBOX1322RJMC/Connect-Logo-print_mark-only-color.png"></img></span>
+      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+ 
+      <style>
+      #`+(RandomStringId+"dell")+`:hover{
+        transition: 0.70s;
+        -webkit-transition: 0.70s;
+        -moz-transition: 0.70s;
+        -ms-transition: 0.70s;
+        -o-transition: 0.70s;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      </style>
+      
+      </div>
+      <td><a style="position: relative;width:200px;height:78px;font-family:Oracle Sans Condensed;"class="list-group-item list-group-item-action py-2 ripple active text" >
+Variable
+        <span class="dot"id="`+RandomStringId+"1"+`" style="top;30px;"> 
+        <div style="width:30px;position:relative;left:80%;top:40%;height:45px;">
+      <div style="
+      position:absolute;
+      left:-80px;
+      top:-7px;
+      transition: 0.5s;
+      " id="`+RandomStringId+">"+`"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+      </div>
+
+
+      <div style="
+      position:absolute;
+      left:-65px;
+      top:-7px;
+      transition: 0.5s;
+      "
+      " id="`+RandomStringId+"<"+`"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+</svg>
+
+      </div>
+
+</div>
+
+        </span>
+        <div
+        id="`+RandomStringId+"CodeString"+`"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
+        
+        >
+Var Name = Content
+</div>
         </a></td>
-        <div class="list-group-item list-group-item-action py-2 ripple active text" style="relative;width:200px;">
-          <label for="name"></label>
-          <label style="font-size:10px;" for="name">Variable name</label></br>
-         
-  <input style="width:40px;"type="text" id="`+(RandomStringId+"varname")+`">
-  &nbsp;
-    <label for="name">=</label>
-    &nbsp; 
+
   
-  <input style="width:40px;"type="text" id="`+(RandomStringId+"var")+`">
-  <label style="font-size:10px;" for="name">Value</label></br>
-    </div></div></div>`
+        <button 
+        onclick="
+        
+        document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'block';
+
+
+        "
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" style="width:200px;text-align: center;outline: none; ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+</svg>
+
+        <span >Edit</span>
+      </button>
+
+
+
+    
+    </div>
+
+
+
+             `
              $( "#"+RandomStringId).draggable();
 
-             
+
+
+      
+      var tag = document.createElement(RandomStringId+"EDITMENU");
+      tag.id = RandomStringId+"EDITMENU"
+      tag.style.position = 'absolute';
+      tag.style.width = "200px";
+      document.getElementById('body').appendChild(tag);
+      tag.innerHTML =`
+      <div class="list-group-item list-group-item-action py-2 ripple active text" 
+      style="
+      top: 50%;
+      left: 44%;
+      width: 50em;
+      height: 23em;
+      margin-top: -9em;
+      margin-left: -15em;
+      border: 1px solid #666;
+      background-color:#e5e5e5;
+      position: fixed;
+      display:block;
+      text-align: center;
+      /* From https://css.glass */
+background: rgba(255, 255, 255, 0.67);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.9px);
+-webkit-backdrop-filter: blur(7.9px);
+border: 1px solid rgba(255, 255, 255, 0.83);
+      
+      ">
+      
+      <div id="`+(RandomStringId+"EDITOR"+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px
+      position:absolute;
+      top:0%;
+      left:95%;
+      "
+      onclick="
+      
+      document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'none';
+
+
+
+      "
+      >
+     
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+      </div>
+
+      <div style="
+      position:absolute;
+      color:black;
+      font-family:Oracle Sans Condensed;
+      left:10px;
+      top:5px;
+      text-align: center;
+      
+      ">
+      Variable
+      </div>
+
+      <div class="mb-6" style="outline:none;">
+      <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+      What do you want to call the container that will hold your information?</label>
+      <input  placeholder="Type here your variable." id="`+(RandomStringId+"var1")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+
+   
+
+
+
+  <div class="mb-6" style="outline:none;">
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+  What information do you want to put inside the container?</label>
+  <input placeholder="Type here your variable." id="`+(RandomStringId+"var2")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+
+
+
+<a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>
+
+  </div>
+
+  <style>
+  #`+(RandomStringId+"EDITOR"+"dell")+`:hover{
+    transition: 0.70s;
+    -webkit-transition: 0.70s;
+    -moz-transition: 0.70s;
+    -ms-transition: 0.70s;
+    -o-transition: 0.70s;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  </style>
+
+  
+
+
+      `
+      tag.style.display="none"
+      //tag.style.display = 'none';
+      setTimeout(() => {
+        $("#"+RandomStringId+"var1").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+         $("#"+RandomStringId+"var2").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+    }, "1000");
+
     }
 
     GetPythonCode(){
-      return $("#"+this.RandomStringId+"varname").val()+"="+$("#"+this.RandomStringId+"var").val()
+      return $("#"+this.RandomStringId+"var1").val()+"="+$("#"+this.RandomStringId+"var2").val()+":\n<!&*>"+this.StringId+"<!&*>"
       
+    }
+
+    change(){
+      console.log("asd")
+      //s$("#"+this.RandomStringId+"CodeString").value() = GetPythonCode()
+      document.getElementById(this.RandomStringId+"CodeString").value= this.GetPythonCode()
     }
     
     CanConnectFrom(){
       return false
     }
+  
     constructor(randomString){
       super(randomString);
       //console.log(randomString)
       this.RandomStringId =randomString;
       this.constructHtml(this.RandomStringId);
       $( "#"+this.RandomStringId).draggable();
+  
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  class InputBlock extends Block{
+    constructHtml(RandomStringId){
+      //console.log(RandomStringId)
+      var tag = document.createElement(RandomStringId);
+      tag.id = RandomStringId
+      tag.style.position = 'absolute';
+      tag.style.width = "200px";
+      document.getElementById('body').appendChild(tag);
+      tag.innerHTML =`<div id="`+RandomStringId+"3"+`">
+      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+ 
+      <style>
+      #`+(RandomStringId+"dell")+`:hover{
+        transition: 0.70s;
+        -webkit-transition: 0.70s;
+        -moz-transition: 0.70s;
+        -ms-transition: 0.70s;
+        -o-transition: 0.70s;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      </style>
+      
+      </div>
+      <td><a style="position: relative;width:200px;height:78px;font-family:Oracle Sans Condensed;"class="list-group-item list-group-item-action py-2 ripple active text" >
+Input
+        <span class="dot"id="`+RandomStringId+"1"+`" style="top;30px;"> 
+        <div style="width:30px;position:relative;left:80%;top:40%;height:45px;">
+      <div style="
+      position:absolute;
+      left:-80px;
+      top:-7px;
+      transition: 0.5s;
+      " id="`+RandomStringId+">"+`"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+      </div>
+
+
+      <div style="
+      position:absolute;
+      left:-65px;
+      top:-7px;
+      transition: 0.5s;
+      "
+      " id="`+RandomStringId+"<"+`"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+</svg>
+
+      </div>
+
+</div>
+
+        </span>
+        <div
+        id="`+RandomStringId+"CodeString"+`"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
+        
+        >
+Var Name = input()
+</div>
+        </a></td>
+
+  
+        <button 
+        onclick="
+        
+        document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'block';
+
+
+        "
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" style="width:200px;text-align: center;outline: none; ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+</svg>
+
+        <span >Edit</span>
+      </button>
+
+
+
+    
+    </div>
+
+
+
+             `
+             $( "#"+RandomStringId).draggable();
+
+
+
+      
+      var tag = document.createElement(RandomStringId+"EDITMENU");
+      tag.id = RandomStringId+"EDITMENU"
+      tag.style.position = 'absolute';
+      tag.style.width = "200px";
+      document.getElementById('body').appendChild(tag);
+      tag.innerHTML =`
+      <div class="list-group-item list-group-item-action py-2 ripple active text" 
+      style="
+      z-index:102;
+      top: 50%;
+      left: 44%;
+      width: 50em;
+      height: 23em;
+      margin-top: -9em;
+      margin-left: -15em;
+      border: 1px solid #666;
+      background-color:#e5e5e5;
+      position: fixed;
+      display:block;
+      text-align: center;
+      /* From https://css.glass */
+background: rgba(255, 255, 255, 0.67);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.9px);
+-webkit-backdrop-filter: blur(7.9px);
+border: 1px solid rgba(255, 255, 255, 0.83);
+      
+      ">
+      
+      <div id="`+(RandomStringId+"EDITOR"+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px
+      position:absolute;
+      top:0%;
+      left:95%;
+      "
+      onclick="
+      
+      document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'none';
+
+
+
+      "
+      >
+     
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+      </div>
+
+      <div style="
+      position:absolute;
+      color:black;
+      font-family:Oracle Sans Condensed;
+      left:10px;
+      top:5px;
+      text-align: center;
+      
+      ">
+      Input
+      </div>
+
+      <div class="mb-6" style="outline:none;">
+      <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+      What do you want to call the container that will hold your information?</label>
+      <input  placeholder="Type here your variable." id="`+(RandomStringId+"var1")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+
+   
+
+
+
+  <div class="mb-6" style="outline:none;">
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+  What is the question do you want to ask the user on input?</label>
+  <div class="px-4 inline-flex items-center min-w-fit rounded-l-md border border-r-0 border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" 
+  style="width:100%;"
+  >
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-400" >
+  Is your input a number?</label>
+          <select id="`+(RandomStringId+"isnumber")+`" 
+          style="
+          position:relative;
+          right:5px;
+          outline:none;
+          background-color:inherit;
+          "
+          
+          >
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+          </select>
+
+  <input style="outline:none;" placeholder="Type here your variable." id="`+(RandomStringId+"var2")+`" type="text" class="block w-full p-4 text-gray-900
+ bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+  </div>
+
+
+
+
+<a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>
+
+  </div>
+
+  <style>
+  #`+(RandomStringId+"EDITOR"+"dell")+`:hover{
+    transition: 0.70s;
+    -webkit-transition: 0.70s;
+    -moz-transition: 0.70s;
+    -ms-transition: 0.70s;
+    -o-transition: 0.70s;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  </style>
+
+  
+
+
+      `
+      tag.style.display="none"
+      //tag.style.display = 'none';
+      setTimeout(() => {
+        $("#"+RandomStringId+"var1").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+         $("#"+RandomStringId+"var2").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+  
+  
+        } );
+    }, "1000");
+
+    }
+
+    GetPythonCode(){
+      if ($("#"+this.RandomStringId+"isnumber").val()){
+      return $("#"+this.RandomStringId+"var1").val()+"= int(input('"+$("#"+this.RandomStringId+"var2").val()+"'))\n<!&*>"+this.StringId+"<!&*>"
+      }else{
+        return $("#"+this.RandomStringId+"var1").val()+"= input('"+$("#"+this.RandomStringId+"var2").val()+"')\n<!&*>"+this.StringId+"<!&*>"
+      }
+      
+    }
+
+    change(){
+      console.log("asd")
+      //s$("#"+this.RandomStringId+"CodeString").value() = GetPythonCode()
+      document.getElementById(this.RandomStringId+"CodeString").value= this.GetPythonCode()
+    }
+    
+    CanConnectFrom(){
+      return false
+    }
+  
+    constructor(randomString){
+      super(randomString);
+      //console.log(randomString)
+      this.RandomStringId =randomString;
+      this.constructHtml(this.RandomStringId);
+      $( "#"+this.RandomStringId).draggable();
+  
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  class PrintBlock extends Block{
+    constructHtml(RandomStringId){
+      //console.log(RandomStringId)
+      var tag = document.createElement(RandomStringId);
+      tag.id = RandomStringId
+      tag.style.position = 'absolute';
+      tag.style.width = "200px";
+      document.getElementById('body').appendChild(tag);
+      tag.innerHTML =`<div id="`+RandomStringId+"3"+`">
+      <div id="`+(RandomStringId+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+ 
+      <style>
+      #`+(RandomStringId+"dell")+`:hover{
+        transition: 0.70s;
+        -webkit-transition: 0.70s;
+        -moz-transition: 0.70s;
+        -ms-transition: 0.70s;
+        -o-transition: 0.70s;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      </style>
+      
+      </div>
+      <td><a style="position: relative;width:200px;height:78px;font-family:Oracle Sans Condensed;"class="list-group-item list-group-item-action py-2 ripple active text" >
+Print
+        <span class="dot"id="`+RandomStringId+"1"+`" style="top;30px;"> 
+        <div style="width:30px;position:relative;left:80%;top:40%;height:45px;">
+      <div style="
+      position:absolute;
+      left:-80px;
+      top:-7px;
+      transition: 0.5s;
+      " id="`+RandomStringId+">"+`"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+      </div>
+
+
+      <div style="
+      position:absolute;
+      left:-65px;
+      top:-7px;
+      transition: 0.5s;
+      "
+      " id="`+RandomStringId+"<"+`"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+</svg>
+
+      </div>
+
+</div>
+
+        </span>
+        <div
+        id="`+RandomStringId+"CodeString"+`"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:auto;bold:100;"
+        
+        >
+print(content)
+</div>
+        </a></td>
+
+  
+        <button 
+        onclick="
+        
+        document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'block';
+
+
+        "
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex ifintems-center" style="width:200px;text-align: center;outline: none; ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+</svg>
+
+        <span >Edit</span>
+      </button>
+
+
+
+    
+    </div>
+
+
+
+             `
+             $( "#"+RandomStringId).draggable();
+
+
+
+      
+      var tag = document.createElement(RandomStringId+"EDITMENU");
+      tag.id = RandomStringId+"EDITMENU"
+      tag.style.position = 'absolute';
+      tag.style.width = "200px";
+      document.getElementById('body').appendChild(tag);
+      tag.innerHTML =`
+      <div class="list-group-item list-group-item-action py-2 ripple active text" 
+      style="
+      z-index:102;
+      top: 50%;
+      left: 44%;
+      width: 50em;
+      height: 23em;
+      margin-top: -9em;
+      margin-left: -15em;
+      border: 1px solid #666;
+      background-color:#e5e5e5;
+      position: fixed;
+      display:block;
+      text-align: center;
+      /* From https://css.glass */
+background: rgba(255, 255, 255, 0.67);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.9px);
+-webkit-backdrop-filter: blur(7.9px);
+border: 1px solid rgba(255, 255, 255, 0.83);
+      
+      ">
+      
+      <div id="`+(RandomStringId+"EDITOR"+"dell")+`"style="position:relative;left:86%;top:29px;z-index:100;cursor: pointer;  transition: 0.70s;
+      -webkit-transition: 0.70s;
+      -moz-transition: 0.70s;
+      -ms-transition: 0.70s;
+      -o-transition: 0.70s;
+      width:30px;
+      height:30px
+      position:absolute;
+      top:0%;
+      left:95%;
+      "
+      onclick="
+      
+      document.getElementById('`+RandomStringId+"EDITMENU"+`').style.display = 'none';
+
+
+
+      "
+      >
+     
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+      </div>
+
+      <div style="
+      position:absolute;
+      color:black;
+      font-family:Oracle Sans Condensed;
+      left:10px;
+      top:5px;
+      text-align: center;
+      
+      ">
+      Print
+      </div>
+
+      <div class="mb-6" style="outline:none;">
+      <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+      Write what you want to print out.</label>
+      <input  placeholder="Type here your variable." id="`+(RandomStringId+"var1")+`" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+
+   
+
+
+
+
+
+
+  </div>
+
+  <style>
+  #`+(RandomStringId+"EDITOR"+"dell")+`:hover{
+    transition: 0.70s;
+    -webkit-transition: 0.70s;
+    -moz-transition: 0.70s;
+    -ms-transition: 0.70s;
+    -o-transition: 0.70s;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  </style>
+
+  
+
+
+      `
+      tag.style.display="none"
+      //tag.style.display = 'none';
+      setTimeout(() => {
+
+         $("#"+RandomStringId+"var1").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML= "print("+$("#"+RandomStringId+"var1").val()+")"
+  
+        } );
+    }, "1000");
+
+    }
+
+    GetPythonCode(){
+      return "print('"+$("#"+this.RandomStringId+"var1").val()+"')\n<!&*>"+this.StringId+"<!&*>"
+      
+    }
+
+    change(){
+      console.log("asd")
+      //s$("#"+this.RandomStringId+"CodeString").value() = GetPythonCode()
+      document.getElementById(this.RandomStringId+"CodeString").value= this.GetPythonCode()
+    }
+    
+    CanConnectFrom(){
+      return false
+    }
+  
+    constructor(randomString){
+      super(randomString);
+      //console.log(randomString)
+      this.RandomStringId =randomString;
+      this.constructHtml(this.RandomStringId);
+      $( "#"+this.RandomStringId).draggable();
+  
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   
   window.addEventListener("DOMContentLoaded", (event) => {
     BlockManager = new BlocksManager();
@@ -678,6 +1553,9 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
     Sidebar = new SideBar()
     Sidebar.addBlockOption("IF STATEMENT")
+    Sidebar.addBlockOption("Variable");
+    Sidebar.addBlockOption("InputBlock")
+    Sidebar.addBlockOption("Print")
     Sidebar.createSidebar()
     $('#body').on('click', function() {
       jsPlumb.repaintEverything();BlockManager.CreateCode();
