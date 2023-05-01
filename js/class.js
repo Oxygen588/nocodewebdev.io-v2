@@ -435,9 +435,9 @@ class Block{
 </div>
 
         </span>
-        <div
+           <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:scroll !important;overflow-y: scroll !important;white-space: nowrap;"
         
         >
 if var(==)var2:
@@ -595,16 +595,49 @@ border: 1px solid rgba(255, 255, 255, 0.83);
         $("#"+RandomStringId+"operator").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
   
-  
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
         } );
         $("#"+RandomStringId+"var1").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
-  
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
         } );
          $("#"+RandomStringId+"var2").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
-  
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
         } );
     }, "1000");
@@ -715,9 +748,9 @@ Variable
 </div>
 
         </span>
-        <div
+           <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 Var Name = Content
@@ -868,11 +901,35 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       setTimeout(() => {
         $("#"+RandomStringId+"var1").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
   
         } );
          $("#"+RandomStringId+"var2").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
   
         } );
@@ -1022,9 +1079,9 @@ Input
 </div>
 
         </span>
-        <div
+           <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 Var Name = input()
@@ -1196,11 +1253,35 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       setTimeout(() => {
         $("#"+RandomStringId+"var1").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
   
         } );
          $("#"+RandomStringId+"var2").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
   
   
         } );
@@ -1353,7 +1434,7 @@ Print
         </span>
         <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:auto;bold:100;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 print(content)
@@ -1498,7 +1579,18 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
          $("#"+RandomStringId+"var1").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= "print("+$("#"+RandomStringId+"var1").val()+")"
-  
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
         } );
     }, "1000");
 
