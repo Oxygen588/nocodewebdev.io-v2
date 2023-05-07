@@ -54,8 +54,8 @@ var RightsourceOption = {
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
   return {
-    left: rect.left + window.hiddenX,
-    top: rect.top + window.hiddenY
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
   };
 }
 
@@ -66,6 +66,30 @@ class BlocksManager{
   CurrentClick = ""
   constructor(){
 
+  }
+
+  GenerateAiHelp(id){
+
+    document.getElementById(id+"-ai-generated-help-button").onclick = function() { BlockManager.ReGenerateAiHelp(id) }
+    //BlockManager.getBlockFromId(id)
+    //BlockManager.getBlockFromId(id)
+    console.log(id+"-ai-generated-help-button")
+    document.getElementById(id+"-ai-generated-help-button").innerHTML = "We are generating your Explenation. "
+        AiHelper.generateAiResponse(BlockManager.getBlockFromId(id).GetPythonCode().split("<!&*>")[0],true,async function(cntr) {
+            document.getElementById(id+"-ai-generated-help").innerHTML =  "<br>"+await cntr;
+            document.getElementById(id+"-ai-generated-help-button").innerHTML = "Re-generate Explenation. "
+        });
+  }
+  ReGenerateAiHelp(id){
+
+
+    //BlockManager.getBlockFromId(id)
+    console.log(id+"-ai-generated-help-button")
+    document.getElementById(id+"-ai-generated-help-button").innerHTML = "We are generatin your Explenation. "
+        AiHelper.generateAiResponseNew(BlockManager.getBlockFromId(id).GetPythonCode().split("<!&*>")[0],true,async function(cntr) {
+            document.getElementById(id+"-ai-generated-help").innerHTML =  "<br>"+await cntr;
+            document.getElementById(id+"-ai-generated-help-button").innerHTML = "Re-generate Explenation. "
+        });
   }
 
   ManageConnectionCreation(id){
@@ -437,7 +461,7 @@ class Block{
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:hidden !important;overflow-y: hidden !important;white-space: nowrap;"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:scroll !important;overflow-y: scroll !important;white-space: nowrap;"
         
         >
 if var(==)var2:
@@ -481,10 +505,10 @@ if var(==)var2:
       tag.innerHTML =`
       <div class="list-group-item list-group-item-action py-2 ripple active text" 
       style="
-      top: 50%;
+      top: 20%;
       left: 44%;
       width: 50em;
-      height: 23em;
+      height: auto;
       margin-top: -9em;
       margin-left: -15em;
       border: 1px solid #666;
@@ -565,8 +589,10 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 </div>
 
 
+ 
+<div class="font-medium text-gray-600 dark:text-blue-500 hover:underline" id="`+RandomStringId+`-ai-generated-help"></div>
+<button id="`+(RandomStringId+"-ai-generated-help-button")+`" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="BlockManager.GenerateAiHelp('`+RandomStringId+`')">I need explenation!</button>
 
-<a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>
 
   </div>
 
@@ -750,7 +776,7 @@ Variable
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 Var Name = Content
@@ -1081,7 +1107,7 @@ Input
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 Var Name = input()
@@ -1290,7 +1316,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     }
 
     GetPythonCode(){
-      if ($("#"+this.RandomStringId+"isnumber").val()=="yes"){
+      if ($("#"+this.RandomStringId+"isnumber").val()){
       return $("#"+this.RandomStringId+"var1").val()+"= int(input('"+$("#"+this.RandomStringId+"var2").val()+"'))\n<!&*>"+this.StringId+"<!&*>"
       }else{
         return $("#"+this.RandomStringId+"var1").val()+"= input('"+$("#"+this.RandomStringId+"var2").val()+"')\n<!&*>"+this.StringId+"<!&*>"
@@ -1434,7 +1460,7 @@ Print
         </span>
         <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
         
         >
 print(content)
@@ -1639,19 +1665,16 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
   
   window.addEventListener("DOMContentLoaded", (event) => {
-    AiHelper = new aiHelper()
     BlockManager = new BlocksManager();
     //test = new IfStatementBlock(MakeRandomString(70));
    // BlockManager.addBlockAsParent(test)
-    
+
     Sidebar = new SideBar()
     Sidebar.addBlockOption("IF STATEMENT")
     Sidebar.addBlockOption("Variable");
     Sidebar.addBlockOption("InputBlock")
     Sidebar.addBlockOption("Print")
-
     Sidebar.createSidebar()
-
     $('#body').on('click', function() {
       jsPlumb.repaintEverything();BlockManager.CreateCode();
       

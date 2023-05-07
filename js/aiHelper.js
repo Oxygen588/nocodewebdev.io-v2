@@ -243,9 +243,9 @@ class aiHelper{
             game = await localStorage.getItem('fGame')
         }
         let sport = await localStorage.getItem('fsport')
-        let text = `You are `+voice+` the YouTuber , Explain this to a 11 year old who is interested in `+game+` and `+sport+`:'`+neededToExplain+`'.In your answer you have to give your response in character as well as the response has to be based on the students intrests, with examples from the activities involving doing that intrest.Make it exact on the code given. Devide your answer into html blocks.Use <code></code> to show the code. Make it as explicit as needed for any IQ to understand it. Make short and enjoyable to read as possible. . Your response will be displayed using innerHTML so make it look good!`
+        let text = `You are `+voice+` the YouTuber ,no need to introduce yourself , Explain this to a 11 year old who is interested in `+game+` and `+sport+`:'`+neededToExplain+`'.In your answer you have to give your response in character as well as the response has to be based on the students intrests, with examples from the activities involving doing that intrest.Make it exact on the code given. Devide your answer into html blocks.Use <code></code> to show the code. Make it as explicit as needed for any IQ to understand it. Make short and enjoyable to read as possible. . Your response will be displayed using innerHTML so make it look good!This code is python.`
         if (short){
-            text+=". Maximum of 20 words! Make it short!"
+            text+=". Maximum of 20 words! Make it short! "
         }
         text = text.replace(/ /g, "%20")
         if (localStorage.getItem(text)!=null){
@@ -305,7 +305,7 @@ class aiHelper{
             game = await localStorage.getItem('fGame')
         }
         let sport = await localStorage.getItem('fsport')
-        let text = `You are `+voice+` the YouTuber , Explain this to a 11 year old who is interested in `+game+` and `+sport+`:'`+neededToExplain+`'.In your answer you have to give your response in character as well as the response has to be based on the students intrests, with examples from the activities involving doing that intrest.Make it exact on the code given. Devide your answer into html blocks.Use <code></code> to show the code. Make it as explicit as needed for any IQ to understand it. Make short and enjoyable to read as possible. . Your response will be displayed using innerHTML so make it look good!`
+        let text = `You are `+voice+` the YouTuber ,no need to introduce yourself , Explain this to a 11 year old who is interested in `+game+` and `+sport+`:'`+neededToExplain+`'.In your answer you have to give your response in character as well as the response has to be based on the students intrests, with examples from the activities involving doing that intrest.Make it exact on the code given. Devide your answer into html blocks.Use <code></code> to show the code. Make it as explicit as needed for any IQ to understand it. Make short and enjoyable to read as possible. . Your response will be displayed using innerHTML so make it look good!This code is python.`
         if (short){
             text+=". Maximum of 20 words! Make it short!"
         }
