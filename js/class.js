@@ -54,8 +54,8 @@ var RightsourceOption = {
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
   return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY
+    left: rect.left + window.hiddenX,
+    top: rect.top + window.hiddenY
   };
 }
 
@@ -437,7 +437,7 @@ class Block{
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:scroll !important;overflow-y: scroll !important;white-space: nowrap;"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:hidden !important;overflow-y: hidden !important;white-space: nowrap;"
         
         >
 if var(==)var2:
@@ -750,7 +750,7 @@ Variable
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
         
         >
 Var Name = Content
@@ -1081,7 +1081,7 @@ Input
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
         
         >
 Var Name = input()
@@ -1434,7 +1434,7 @@ Print
         </span>
         <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;scrollbar-width: thin;height:30px;overflow:scroll !important;overflow-y: scroll !important;"
+        style="style:absolute;top:13px;white-space: nowrap;font-family: 'RX100';font-size:18px;bold:100;width:175px;hiddenbar-width: thin;height:30px;overflow:hidden !important;overflow-y: hidden !important;"
         
         >
 print(content)
@@ -1639,16 +1639,19 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
   
   window.addEventListener("DOMContentLoaded", (event) => {
+    AiHelper = new aiHelper()
     BlockManager = new BlocksManager();
     //test = new IfStatementBlock(MakeRandomString(70));
    // BlockManager.addBlockAsParent(test)
-
+    
     Sidebar = new SideBar()
     Sidebar.addBlockOption("IF STATEMENT")
     Sidebar.addBlockOption("Variable");
     Sidebar.addBlockOption("InputBlock")
     Sidebar.addBlockOption("Print")
+
     Sidebar.createSidebar()
+
     $('#body').on('click', function() {
       jsPlumb.repaintEverything();BlockManager.CreateCode();
       

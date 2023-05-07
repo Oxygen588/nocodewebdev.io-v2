@@ -41,7 +41,7 @@ body {
   left: 0;
   padding: 58px 0 0; /* Height of navbar */
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 240px;
+  width: 245px;
   z-index: 600;
 }
 
@@ -193,6 +193,7 @@ ul li {
 
 
 <html>
+    
     <head>
       <script src="https://cdn.tailwindcss.com"></script>
 
@@ -208,6 +209,8 @@ ul li {
     
         <script type="text/javascript" src="./js/functions.js" ></script>
         <script  type="text/javascript" src="./js/class.js" ></script>
+       
+        <script  type="text/javascript" src="./js/aiHelper.js" ></script>
         <script  type="text/javascript" src="./js/sidebar.js" ></script>
       </head>
 
@@ -227,7 +230,7 @@ ul li {
 
 <div style="z-index:1001;display: block;" id="sidebaroptions">
     
-<aside style="position: absolute;width: 15.5%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-2 z-40 w-150 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside style="position: absolute;width: 30%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-2 z-40 w-170 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
   
    
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" >
@@ -254,7 +257,7 @@ ul li {
  </aside>
 
  <Button onclick="slideinbar()"style="
- position:absolute;top:9vw;left:13vw;
+ position:absolute;top:9vw;left:27.5%;
  border-bottom: 50px solid #60a5fa;
 border-left: 25px solid transparent;
 border-right: 25px solid transparent;
@@ -285,6 +288,23 @@ transform: rotate(360deg);
 
  </div>
 
+ <div style="z-index: 10000000000;position:absolute;
+   margin: auto;
+  width: 100%;
+  height: 100%;
+
+  padding: 10px;
+ 
+ " id="initvallls"> <div id="initvalues"
+ style="  display: flex;
+
+ position:relative;
+ justify-content: center;
+ align-items: center;
+ top:20%;
+ "
+ ></div></div>
+
 </html>
 
 
@@ -306,7 +326,7 @@ transform: rotate(360deg);
 </body>
 <style>
     #sidebaroptions {
-      transform: translate3d(-16%, 0, 0);
+      transform: translate3d(-30.2%, 0, 0);
       transition: 1.0s;
     }
     #sidebaroptions.slide-in {
@@ -318,9 +338,55 @@ transform: rotate(360deg);
 
 
 
+  <script>
+window.addEventListener("DOMContentLoaded", (event) => {
+    AiHelper = new aiHelper()
+    BlockManager = new BlocksManager();
+    //test = new IfStatementBlock(MakeRandomString(70));
+   // BlockManager.addBlockAsParent(test)
+    
+    Sidebar = new SideBar()
+    Sidebar.addBlockOption("IF STATEMENT")
+    Sidebar.addBlockOption("Variable");
+    Sidebar.addBlockOption("InputBlock")
+    Sidebar.addBlockOption("Print")
+
+    Sidebar.createSidebar()
+
+    $('#body').on('click', function() {
+      jsPlumb.repaintEverything();BlockManager.CreateCode();
+      
+  });
+  $("#body")
+    .mousedown(function() {
+      jsPlumb.repaintEverything();BlockManager.CreateCode();
+    })
+
+    $(function() {
+      var available = true;
+      function resetavailable(){
+        available=true
+      }
+      $("#body")
+      .mousemove(function() {
+          isDragging = true;
+     
+          if (available){
+          jsPlumb.repaintEverything();BlockManager.CreateCode();
+          available=false
+          setTimeout(resetavailable, 3);
+          }
+       })
+ 
+  
+ 
+  });
+
+    //addEventListener('mousemove', (event) => {jsPlumb.repaintEverything();BlockManager.CreateCode();});
+});
 
 
-
+</script>
 
 
 
