@@ -1290,7 +1290,7 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     }
 
     GetPythonCode(){
-      if ($("#"+this.RandomStringId+"isnumber").val()){
+      if ($("#"+this.RandomStringId+"isnumber").val()=="yes"){
       return $("#"+this.RandomStringId+"var1").val()+"= int(input('"+$("#"+this.RandomStringId+"var2").val()+"'))\n<!&*>"+this.StringId+"<!&*>"
       }else{
         return $("#"+this.RandomStringId+"var1").val()+"= input('"+$("#"+this.RandomStringId+"var2").val()+"')\n<!&*>"+this.StringId+"<!&*>"

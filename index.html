@@ -225,12 +225,28 @@ ul li {
 
 
 
-<div style="z-index:1001" id="sidebaroptions">
+<div style="z-index:1001;display: block;" id="sidebaroptions">
+    
 <aside style="position: absolute;width: 15.5%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-2 z-40 w-150 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-
+  
    
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" id="SideBar">
-   
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" >
+        <div class="mb-6" style="position:relative;outline:none;">
+ 
+            <div class="px-4 inline-flex items-center min-w-fit rounded-l-md border border-r-0 border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" 
+            style="width:100%;"
+            >
+            <label for="large-input" class="block mb-2 text-m font-medium text-gray-400" >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+        </label>
+                  
+          
+            <input id="sideBarSearch" style="outline:none;" placeholder="What are you looking for?" type="text" class="block w-full p-4 text-gray-900
+           bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+        <div id="SideBar"></div>
 
     </div>
 
@@ -271,11 +287,9 @@ transform: rotate(360deg);
 
 </html>
 
+
 <script>
-  includeHTML("PythonIDE");
-  $(function(){
-      $("#includedContent").load("./htmlFiles/PythonExecutor.html"); 
-    });
+
     
 
             trueorfalseSidebar = false
