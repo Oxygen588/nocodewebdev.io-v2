@@ -230,10 +230,10 @@ ul li {
 
 <div style="z-index:1001;display: block;" id="sidebaroptions">
     
-<aside style="position: absolute;width: 30%; border-radius: 50px;" id="default-sidebar" class="fixed top-0 left-2 z-40 w-170 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside style="position: absolute; border-radius: 50px;width: 15vw;"  id="default-sidebar" class="fixed top-0 left-2 z-40 w-110 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
   
    
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" >
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"  >
         <div class="mb-6" style="position:relative;outline:none;">
  
             <div class="px-4 inline-flex items-center min-w-fit rounded-l-md border border-r-0 border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" 
@@ -257,12 +257,14 @@ ul li {
  </aside>
 
  <Button onclick="slideinbar()"style="
- position:absolute;top:9vw;left:27.5%;
+ position:absolute;top:9vw;left:13vw;
  border-bottom: 50px solid #60a5fa;
 border-left: 25px solid transparent;
 border-right: 25px solid transparent;
-height: 0;
-width: 125px;
+margin: auto;
+margin: auto;
+height: 10%;
+width: 6.5vw;
 transform: rotate(90deg);
 outline: none;
 border-radius: 15px;
@@ -317,8 +319,10 @@ transform: rotate(360deg);
                 trueorfalseSidebar = !trueorfalseSidebar
               if (trueorfalseSidebar){
               $('#sidebaroptions').addClass('slide-in');
+              $("#sidebaroptions1").fadeOut();
               }else{
                 $('#sidebaroptions').removeClass('slide-in');
+                $("#sidebaroptions1").fadeIn();
               }
             }
   
@@ -326,11 +330,11 @@ transform: rotate(360deg);
 </body>
 <style>
     #sidebaroptions {
-      transform: translate3d(-30.2%, 0, 0);
+      transform: translate3d(-15vw, 0, 0);
       transition: 1.0s;
     }
     #sidebaroptions.slide-in {
-      transform: translate3d(-0.3%, 0, 0);
+      transform: translate3d(-0.8%, 0, 0);
     }
 </style>
 
@@ -443,6 +447,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+
+
       <body>
 
 
@@ -493,12 +499,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
             <div class="container" id="container" style="
             position:absolute;width: 35vw;left: 64.2vw;bottom:5vw;">>
                 <Button onclick="slidein()"style="
-                position:relative;top:9vw;left:-5vw;
+                position:relative;top:9vw;left:-4.5vw;
                 border-bottom: 50px solid #60a5fa;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     height: 0;
-    width: 125px;
+    width: 6.5vw;
     transform: rotate(-90deg);
     outline: none;
     border-radius: 15px;
@@ -1059,7 +1065,138 @@ window.addEventListener("DOMContentLoaded", (event) => {
     </html>
     <!-- partial -->
       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </body>
     
     </html>
     
+
+    <div style="z-index:1001;display: block;" id="sidebaroptions1">
+    
+        <aside style="position: absolute; border-radius: 50px;width: 20vw;"  id="default-sidebar" class="fixed top-0 left-2 z-40 w-110 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+          
+           
+            <div class="h-full w-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"  >
+                <div class="mb-6" style="position:relative;outline:none;text-align: center;">
+         
+                    <div>
+                        <h1 class="mb-2 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4x2 dark:text-white">
+                            Introduction to if statements.
+                        </h1>
+                    </div>
+              
+<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+In this exercise we will make a simple system that takes in the room temperature and tells you if it is hot or not!
+</p>
+<h1 class="mb-1 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2x1 dark:text-white">
+    STEP 1.
+</h1>
+<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+    As per the last exercise, you will use the <button style="color:white;font-size: 16px;" onclick="BlockManager.addBlockAsParent(new InputBlock(MakeRandomString(70)))"> input </button> block to create the variable that will get the temperature.
+</p>
+
+<h1 class="mb-1 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2x1 dark:text-white">
+    STEP 2.
+</h1>
+
+<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+    The next step is to make the condition that checks if the variable you created is bigger than a temperature you would feel like its hot.
+<br> Therefore we will use the <button style="color:white;font-size: 16px;" onclick="BlockManager.addBlockAsParent(new IfstatementBlock(MakeRandomString(70)))"> IF STATEMENT </button>
+block to do this, so go ahead and set up your condiition within the block.
+</p>
+<h1 class="mb-1 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2x1 dark:text-white">
+    STEP 3.
+</h1>
+<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+   The last thing we have to do is create the <button style="color:white;font-size: 16px;" onclick="BlockManager.addBlockAsParent(new PrintBlock(MakeRandomString(70)))"> print </button> block so we can show that the temperature is high, also set a nice message to show that the temperature is high.
+   <br>
+   And now connect your if statement block to the print statement.
+</p>
+<h1 class="mb-1 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2x1 dark:text-white">
+    STEP 4.
+</h1>
+<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+    Test it!<br>Now open your code editor and run it!
+ </p>
+
+        
+            </div>
+        
+            
+         </aside>
+        
+         <Button onclick="slideinbar1()"style="
+         position:absolute;top:16vw;left:18vw;
+         border-bottom: 50px solid #60a5fa;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        margin: auto;
+        margin: auto;
+        height: 10%;
+        width: 6.5vw;
+        transform: rotate(90deg);
+        outline: none;
+        border-radius: 15px;
+        
+         ">
+             <div  style="position:absolute;top:5px;left:22px; transform:rotate(-90deg);" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                  </svg>
+                  
+                  
+                  
+                  
+             </div>
+             <style>
+                 #DragIDE:hover{
+                     transition: 0.70s;
+        -webkit-transition: 0.70s;
+        -moz-transition: 0.70s;
+        -ms-transition: 0.70s;
+        -o-transition: 0.70s;
+        
+        transform: rotate(360deg);
+                 }
+             </style>
+         </Button>
+        
+         </div>
+
+         <script>
+trueorfalseSidebar2 = false
+            function slideinbar1(){
+                trueorfalseSidebar2 = !trueorfalseSidebar2
+              if (trueorfalseSidebar2){
+              $('#sidebaroptions1').addClass('slide-in');
+              $("#sidebaroptions").fadeOut();
+              }else{
+                $('#sidebaroptions1').removeClass('slide-in');
+                $("#sidebaroptions").fadeIn();
+              }
+            }
+            </script>
+
+<style>
+    #sidebaroptions1 {
+      transform: translate3d(-20vw, 0, 0);
+      transition: 1.0s;
+    }
+    #sidebaroptions1.slide-in {
+      transform: translate3d(-0.8%, 0, 0);
+    }
+</style>

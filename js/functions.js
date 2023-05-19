@@ -29,7 +29,7 @@ function includeHTML(elemendAttribute) {
 
 
 function createDisplayDiv(RandomStringId,description,title){
-  return `<div id="`+RandomStringId+"3"+`">
+  return `<div id="`+RandomStringId+"3"+`" style="overflow: hidden;">
 
       <td><a style="position: relative;width:200px;height:78px;font-family:Oracle Sans Condensed;"class="list-group-item list-group-item-action py-2 ripple active text" >${title}
         <span class="dot"id="`+RandomStringId+"1"+`" style="top;30px;"> 
@@ -93,7 +93,7 @@ function createDisplayDiv(RandomStringId,description,title){
         </span>
            <div
         id="`+RandomStringId+"CodeString"+`"
-        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;overflow:scroll !important;overflow-y: scroll !important;white-space: nowrap;"
+        style="style:absolute;top:13px;font-family: 'RX100';font-size:18px;bold:100;width:175px;height:30px;!important;overflow: hide !important;white-space: nowrap;"
         
         >
 ${description}
@@ -125,37 +125,44 @@ ${description}
 
              `
 }
-function switchVarManagerDet(mId){
+function switchVarManagerDet(mId,RandomStringId){
+  BlockManager.getBlockFromId(RandomStringId).setUpUpdates()
   console.log(mId)
   document.getElementById(mId+"Manager").innerHTML = `<input  placeholder="Type here your variable." id="`+mId+`" type="text" class="w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">`
   document.getElementById(mId+"Button").innerHTML = "Select from existing variables."
 }
-function switchVarManagerDet1(mId){
+function switchVarManagerDet1(mId,RandomStringId){
   variables = BlockManager.getAllVariables();
-
+  BlockManager.getBlockFromId(RandomStringId).setUpUpdates()
   options =""
   for (let i = 0; i < variables.length; i++) {
-    options+= "<option value='"+variables[i][0]+ "'>"+variables[i][0]+ " - Current container holder:"+variables[i][0]+"</option>"
+    options+= "<option value='"+variables[i][0]+ "'>"+variables[i][0]+ "       -     "+variables[i][0]+"</option>"
   }
   console.log(mId+"Manager")
   document.getElementById(mId+"Manager").innerHTML =`
-  <select id="${mId}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <select id="${mId}" class="bg-gray-50 border border-gray-300 text-gray-900 text-l rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
  ${options}
   </select>
 `
 document.getElementById(mId+"Button").innerHTML = "Create new variable."
-document.getElementById(mId+"Button").onclick = function() {switchVarManagerDet(mId)};
+document.getElementById(mId+"Button").onclick = function() {switchVarManagerDet(mId,RandomStringId)};
 
 }
 function createVariableinput(RandomStringId,varid){
+  console.log(BlockManager.getBlockFromId(RandomStringId))
  return  `
-  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >What is the first thing you want to compare? Choose a word, number, or variable.</label>
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " ></label>
   <div id="`+(RandomStringId+varid+'Manager')+`">
-    <input  placeholder="Type here your variable." id="`+(RandomStringId+varid)+`" type="text" class="w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <input  placeholder="Type here your variable." id="`+(RandomStringId+varid)+`" type="text" class="w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 m:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   </div>
-  <button onClick="switchVarManagerDet1('${RandomStringId+varid}')"                  id = "`+(RandomStringId+varid+"Button")+`" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button">
+  <button onClick="switchVarManagerDet1('${RandomStringId+varid}','${RandomStringId}')"                  id = "`+(RandomStringId+varid+"Button")+`" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button">
   See variables.
 </button>
  
   `
+  
+}
+
+function print(stuff){
+  console.log(stuff)
 }

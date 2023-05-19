@@ -600,6 +600,60 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
     }
 
+
+    
+    setUpUpdates(){
+      let RandomStringId = this.RandomStringId
+      $("#"+RandomStringId+"operator").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+      } );
+      $("#"+RandomStringId+"var1").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+      } );
+       $("#"+RandomStringId+"var2").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "if "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+      } );
+    }
+
     GetPythonCode(){
       return "if "+$("#"+this.RandomStringId+"var1").val()+$("#"+this.RandomStringId+"operator").val()+$("#"+this.RandomStringId+"var2").val()+":\n<!&*>"+this.StringId+"<!&*>"
       
@@ -800,6 +854,47 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
     }
 
+
+
+
+    setUpUpdates(){
+      let RandomStringId = this.RandomStringId
+      $("#"+RandomStringId+"var1").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+
+      } );
+       $("#"+RandomStringId+"var2").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+
+      } );
+    }
+
     GetPythonCode(){
       return $("#"+this.RandomStringId+"var1").val()+"="+$("#"+this.RandomStringId+"var2").val()+":\n<!&*>"+this.StringId+"<!&*>"
       
@@ -874,6 +969,12 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
 
   class InputBlock extends Block{
+    isVar(){
+      return true
+    }
+    getVarDetails(){
+      return [$("#"+this.RandomStringId+"var1").val(),$("#"+this.RandomStringId+"var2").val()]
+    }
     constructHtml(RandomStringId){
       //console.log(RandomStringId)
       var tag = document.createElement(RandomStringId);
@@ -966,12 +1067,12 @@ border: 1px solid rgba(255, 255, 255, 0.83);
 
 
   <div class="mb-6" style="outline:none;">
-  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
-  What is the question do you want to ask the user on input?</label>
+
   <div class="px-4 inline-flex items-center min-w-fit rounded-l-md border border-r-0 border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" 
   style="width:100%;"
   >
-  <label for="large-input" class="block mb-2 text-m font-medium text-gray-400" >
+  
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-400"style="height:15px;" >
   Is your input a number?</label>
           <select id="`+(RandomStringId+"isnumber")+`" 
           style="
@@ -986,14 +1087,17 @@ border: 1px solid rgba(255, 255, 255, 0.83);
           <option value="yes">Yes</option>
           </select>
 
-          ${createVariableinput(RandomStringId,"var2")} </div>
+           </div>
   </div>
+  <label for="large-input" class="block mb-2 text-m font-medium text-gray-900 " >
+  What is the question do you want to ask the user on input?</label>
+  ${createVariableinput(RandomStringId,"var2")}
 
 
 
 
 <div class="font-medium text-gray-600 dark:text-blue-500 hover:underline" id="`+RandomStringId+`-ai-generated-help"></div>
-<button id="`+(RandomStringId+"-ai-generated-help-button")+`" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onclick="BlockManager.GenerateAiHelp('`+RandomStringId+`')">I need explenation!</button>
+<button style="margin-top:20px;" id="`+(RandomStringId+"-ai-generated-help-button")+`" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onclick="BlockManager.GenerateAiHelp('`+RandomStringId+`')">I need explenation!</button>
 
   </div>
 
@@ -1020,6 +1124,79 @@ border: 1px solid rgba(255, 255, 255, 0.83);
       //tag.style.display = 'none';
       setTimeout(() => {
         $("#"+RandomStringId+"var1").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML=$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
+  
+  
+        } );
+         $("#"+RandomStringId+"var2").on( "change", function() {
+          document.getElementById(RandomStringId+"CodeString").innerHTML=$("#"+RandomStringId+"var2").val()
+          var div = document.getElementById(RandomStringId+"CodeString");
+          var textLength = div.innerHTML.length;
+          var divWidth = div.offsetWidth;
+          var fontSize = Math.floor(divWidth / textLength);
+          if (fontSize < 18) {
+            fontSize = 18;
+          }
+          if (fontSize > 22) {
+            fontSize = 22;
+          }
+          div.sty
+          div.style.fontSize = fontSize + "px";
+  
+  
+        } );
+    }, "1000");
+
+    }
+
+    setUpUpdates(){
+      let RandomStringId = this.RandomStringId
+      $("#"+RandomStringId+"var1").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+
+      } );
+       $("#"+RandomStringId+"var2").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+
+      } );        $("#"+RandomStringId+"var1").on( "change", function() {
           document.getElementById(RandomStringId+"CodeString").innerHTML= $("#"+RandomStringId+"var1").val()+"="+$("#"+RandomStringId+"var2").val()
           var div = document.getElementById(RandomStringId+"CodeString");
           var textLength = div.innerHTML.length;
@@ -1053,8 +1230,6 @@ border: 1px solid rgba(255, 255, 255, 0.83);
   
   
         } );
-    }, "1000");
-
     }
 
     GetPythonCode(){
@@ -1269,7 +1444,24 @@ border: 1px solid rgba(255, 255, 255, 0.83);
     }, "1000");
 
     }
-
+    setUpUpdates(){
+      let RandomStringId = this.RandomStringId
+      $("#"+RandomStringId+"var1").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "print("+$("#"+RandomStringId+"var1").val()+")"
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+      } );
+    }
     GetPythonCode(){
       return "print('"+$("#"+this.RandomStringId+"var1").val()+"')\n<!&*>"+this.StringId+"<!&*>"
       
@@ -1498,56 +1690,61 @@ ${createVariableinput(RandomStringId,"var1")}</div>
           div.sty
           div.style.fontSize = fontSize + "px";
         } );
-        $("#"+RandomStringId+"varVB").on( "change", function() {
-          document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"varVB").val()+":"
-          var div = document.getElementById(RandomStringId+"CodeString");
-          var textLength = div.innerHTML.length;
-          var divWidth = div.offsetWidth;
-          var fontSize = Math.floor(divWidth / textLength);
-          if (fontSize < 18) {
-            fontSize = 18;
-          }
-          if (fontSize > 22) {
-            fontSize = 22;
-          }
-          div.sty
-          div.style.fontSize = fontSize + "px";
-  
-        } );
-        $("#"+RandomStringId+"var1").on( "change", function() {
-          document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()+":"
-          var div = document.getElementById(RandomStringId+"CodeString");
-          var textLength = div.innerHTML.length;
-          var divWidth = div.offsetWidth;
-          var fontSize = Math.floor(divWidth / textLength);
-          if (fontSize < 18) {
-            fontSize = 18;
-          }
-          if (fontSize > 22) {
-            fontSize = 22;
-          }
-          div.sty
-          div.style.fontSize = fontSize + "px";
-  
-        } );
-         $("#"+RandomStringId+"var2").on( "change", function() {
-          document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()+":"
-          var div = document.getElementById(RandomStringId+"CodeString");
-          var textLength = div.innerHTML.length;
-          var divWidth = div.offsetWidth;
-          var fontSize = Math.floor(divWidth / textLength);
-          if (fontSize < 18) {
-            fontSize = 18;
-          }
-          if (fontSize > 22) {
-            fontSize = 22;
-          }
-          div.sty
-          div.style.fontSize = fontSize + "px";
-  
-        } );
+        this.setUpUpdates()
     }, "1000");
 
+    }
+
+    setUpUpdates(){
+      let RandomStringId = this.RandomStringId
+      $("#"+RandomStringId+"varVB").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"varVB").val()+":"
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+      } );
+      $("#"+RandomStringId+"var1").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()+":"
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+      } );
+       $("#"+RandomStringId+"var2").on( "change", function() {
+        document.getElementById(RandomStringId+"CodeString").innerHTML= "while "+$("#"+RandomStringId+"var1").val()+$("#"+RandomStringId+"operator").val()+$("#"+RandomStringId+"var2").val()+":"
+        var div = document.getElementById(RandomStringId+"CodeString");
+        var textLength = div.innerHTML.length;
+        var divWidth = div.offsetWidth;
+        var fontSize = Math.floor(divWidth / textLength);
+        if (fontSize < 18) {
+          fontSize = 18;
+        }
+        if (fontSize > 22) {
+          fontSize = 22;
+        }
+        div.sty
+        div.style.fontSize = fontSize + "px";
+
+      } );
     }
 
     GetPythonCode(){
@@ -1607,12 +1804,13 @@ ${createVariableinput(RandomStringId,"var1")}</div>
 
 
  
-
+    Sidebar.addBlockOption("Loop")
+    Sidebar.addBlockOption("LOOP")
     Sidebar.addBlockOption("If-statement")
     Sidebar.addBlockOption("Variable");
     Sidebar.addBlockOption("Input")
     Sidebar.addBlockOption("Print")
-    Sidebar.addBlockOption("Loop")
+   
     Sidebar.createSidebar()
     $('#body').on('click', function() {
       jsPlumb.repaintEverything();BlockManager.CreateCode();

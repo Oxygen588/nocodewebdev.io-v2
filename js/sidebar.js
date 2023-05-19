@@ -1,16 +1,17 @@
 buttons={}
-buttons["Ifstatement"]=buttonFormat("Ifstatement")
-buttons["Variable"]=buttonFormat("Variable")
-buttons["Input"]=buttonFormat("Input")
-buttons["Print"]=buttonFormat("Print")
-buttons["Loop"]=buttonFormat("Loop")
-
-function buttonFormat(Name){
+buttons["If statement"]=buttonFormat("Ifstatement", "IF STATEMENT")
+buttons["Variable"]=buttonFormat("Variable","VARIABLE")
+buttons["Input"]=buttonFormat("Input","INPUT")
+buttons["Print"]=buttonFormat("Print","PRINT")
+buttons["Loop"]=buttonFormat("Loop","LOOP")
+buttons["Loop"] = buttonFormat("Loop", "LOOP");
+function buttonFormat(Name,title){
   return`<a onclick=" 
   BlockManager.addBlockAsParent(new `+Name+`Block(MakeRandomString(70)))"
-  style="width:28vw;margin-top:10px;" href="#" class="block max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-  <h5 style="text-align: center;" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black"> `+Name+` </h5>
+  style="width:auto;margin-top:10px;" href="#" class="block max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+  <h5 style="text-align: center;" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black"> `+title+` </h5>
   <p  style="text-align: center;" class="font-normal text-gray-700 dark:text-gray-400" id="`+Name+`-side"></p>
+  
   </a>
   
   <button onclick="Sidebar.generate('`+Name+`')" id="`+Name+`-side1"  style="position:relative;top:-14px;left:1vw"class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
@@ -45,6 +46,7 @@ class SideBar{
     FilterChange(filter){
         var generatedCod = inputSection
         var options = this.showBlockOptions
+        console.log(this.showBlockOptions)
         for (let k in buttons) {
             let item = buttons[k]
          
@@ -53,7 +55,7 @@ class SideBar{
             
             options.forEach(function (item1, index) {
                 
-
+                console.log(item1)
                 if (item.includes(item1)&&(item.includes(filter))){
                     console.log(index)
                     found = true
@@ -68,11 +70,12 @@ class SideBar{
           document.getElementById("SideBar").innerHTML = generatedCod;
     }
     addBlockOption(name){
+    console.log(name)
        this.showBlockOptions.push(name)
        //console.log(this.showBlockOptions)
     }
     isButtonAllowed(buttonName){
-        
+        print(this.showBlockOptions)
         this.showBlockOptions.forEach(function (item, index) {
            // console.log("asd")
             return buttonName.includes(item)
@@ -83,13 +86,14 @@ class SideBar{
     async createSidebar(){
         var generatedCod = inputSection
         var options = this.showBlockOptions
+        print(options)
         for (let k in buttons) {
          let item = buttons[k]
           //  console.log(item)
             var found =true
             
             options.forEach(async function (item1, index) {
-
+               
                 if (item.includes(item1)){
                     found = true
                     console.log(k+"-side")
@@ -136,7 +140,7 @@ document.getElementById(buttonIdentifier+"-side1").onclick = function() { Sideba
 document.getElementById(buttonIdentifier+"-side1").onclick = function() { Sidebar.regenerate(buttonIdentifier) }
         AiHelper.generateAiResponse(buttonIdentifier+" in python",true,async function(cntr) {
             console.log(await cntr)
-            buttons[buttonIdentifier] = buttons[buttonIdentifier].replace(document.getElementById(buttonIdentifier+"-side").innerHTML ,await cntr)
+            //buttons[buttonIdentifier] = buttons[buttonIdentifier].replace(document.getElementById(buttonIdentifier+"-side").innerHTML ,await cntr)
             document.getElementById(buttonIdentifier+"-side").innerHTML = await cntr;
         });
     }
