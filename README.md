@@ -1,4 +1,4 @@
-A flow programming website that has all basic needs to create JS code.
+A flow programming website that has all basic needs to create Python code.
 
 This is a website that can be modified to create flow programing for almost any high level programming language.
 
